@@ -3,11 +3,11 @@ package com.example.sep4android.Models;
 public class ArchiveRoom {
 
     private int roomNumber;
-    private CO2 co2Level;
+    private CO2 co2;
 
-    public ArchiveRoom(int roomNumber,CO2 co2Level){
+    public ArchiveRoom(int roomNumber,CO2 co2){
         this.roomNumber=roomNumber;
-        this.co2Level=co2Level;
+        this.co2=co2;
     }
 
     public int getRoomNumber() {
@@ -18,12 +18,12 @@ public class ArchiveRoom {
         this.roomNumber = roomNumber;
     }
 
-    public CO2 getCO2Level() {
-        return co2Level;
+    public CO2 getCO2() {
+        return co2;
     }
 
-    public void setCo2Level(CO2 co2Level) {
-        this.co2Level = co2Level;
+    public void setCo2(CO2 co2) {
+        this.co2 = co2;
     }
 }
 
