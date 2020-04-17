@@ -1,15 +1,14 @@
 package com.example.sep4android.Models;
 
-import androidx.room.Room;
 
 import java.util.List;
 
 public class Archive {
 
 
-    private List<Room> rooms;
+    private List<ArchiveRoom> rooms;
 
-    public List<Room> getAllArchiveRooms() {
+    public List<ArchiveRoom> getAllArchiveRooms() {
         return rooms;
     }
 
