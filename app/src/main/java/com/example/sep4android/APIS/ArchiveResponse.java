@@ -1,15 +1,15 @@
 package com.example.sep4android.APIS;
 
-import com.example.sep4android.Models.Archive;
+import com.example.sep4android.Models.ArchiveRoom;
 
 import java.util.List;
 
 public class ArchiveResponse {
 
-    private List<Archive> archives;
+    private List<ArchiveRoom> archives;
 
 
-    public List<Archive> getAllArchives() {
+    public List<ArchiveRoom> getAllArchives() {
         return archives;
     }
 

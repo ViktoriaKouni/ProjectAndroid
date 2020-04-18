@@ -8,8 +8,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.sep4android.APIS.ArchiveAPI;
 import com.example.sep4android.APIS.ConditionsResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
-import com.example.sep4android.Models.Archive;
+import com.example.sep4android.Models.ArchiveDao;
 import com.example.sep4android.Models.ArchiveRoom;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,29 +22,27 @@ public class ArchiveRepository {
 
 
     private static ArchiveRepository instance;
-    private MutableLiveData<Archive> archives;
-    private MutableLiveData<ArchiveRoom> archive;
+    private ArchiveDao archiveDao;
 
 
     private ArchiveRepository() {
-        archives = new MutableLiveData<>();
+        archiveDao = ArchiveDao.getInstance();
     }
 
-    public static synchronized ArchiveRepository getInstance() {
+    public static ArchiveRepository getInstance() {
         if (instance == null) {
             instance = new ArchiveRepository();
         }
         return instance;
     }
 
-
-
-    public LiveData<Archive> getAllArchiveRooms() {
-        return archives;
+    public LiveData<List<ArchiveRoom>> getArchiveRooms() {
+        return archiveDao.getArchiveRooms();
     }
 
 
-    public void getCo2Level(int roomNumber) {
+
+    /*public void getCo2Level(int roomNumber) {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
         Call<ConditionsResponse> call = archiveApi.getCo2Level(roomNumber);
         call.enqueue(new Callback<ConditionsResponse>()
@@ -57,6 +57,6 @@ public class ArchiveRepository {
             Log.i("Retrofit", "Something went wrong :(");
         }
         });
-    }
+    }*/
 }
 
