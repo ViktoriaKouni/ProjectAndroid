@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static java.lang.Thread.sleep;
 
 public class ArchiveDao {
 
@@ -20,6 +23,19 @@ public class ArchiveDao {
  // Dummy data for local storage/ testing
         CO2 co2 = new CO2(5);
         ArchiveRoom archiveRoom = new ArchiveRoom(1,co2);
+        List<ArchiveRoom> currentRooms = archiveRooms.getValue();
+        currentRooms.add(archiveRoom);
+        archiveRooms.setValue(currentRooms);
+/*        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        CO2 co21 = new CO2(7);
+        ArchiveRoom archiveRoom1 = new ArchiveRoom(1,co21);
+        List<ArchiveRoom> currentRooms1 = new ArrayList<>();
+        currentRooms1.add(archiveRoom1);
+        archiveRooms.setValue(currentRooms1);*/
 
     }
 

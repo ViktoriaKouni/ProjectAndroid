@@ -45,7 +45,7 @@ public class CO2Activity extends AppCompatActivity {
                     {
                         if(archiveRooms.get(i).getRoomNumber()==roomNumber)
                         {
-                            CO2Value.setText(archiveRooms.get(i).toString());
+                            CO2Value.setText(String.valueOf(archiveRooms.get(i).getCO2().getLevel()));
                             break;
                         }
                     }
