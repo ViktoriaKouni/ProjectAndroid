@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_grey"
             android:orientation="horizontal">
 
             <TextView
@@ -20,14 +21,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CO2 Level" />
+                android:text="CO2 Level"
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/co2Value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
