@@ -1,21 +1,17 @@
 package com.example.sep4android.Views;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.example.sep4android.Models.ArchiveRoom;
-import com.example.sep4android.Models.CO2;
 import com.example.sep4android.R;
+import com.example.sep4android.ViewModels.ArchiveViewModel;
 import com.example.sep4android.ViewModels.CO2ViewModel;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -23,6 +19,7 @@ public class CO2Activity extends AppCompatActivity {
 
         private TextView CO2Value;
         private CO2ViewModel co2ViewModel;
+        private ArchiveViewModel archiveViewModel;
         private int roomNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class CO2Activity extends AppCompatActivity {
 
 
         co2ViewModel = new ViewModelProvider(this).get(CO2ViewModel.class);
-        co2ViewModel.getArchiveRooms().observe(this, new Observer<List<ArchiveRoom>>() {
+       archiveViewModel.getArchiveRooms().observe(this, new Observer<List<ArchiveRoom>>() {
             @Override
             public void onChanged(List<ArchiveRoom> archiveRooms) {
                 if(!archiveRooms.isEmpty())

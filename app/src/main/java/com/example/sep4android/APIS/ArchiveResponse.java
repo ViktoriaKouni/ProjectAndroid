@@ -1,16 +1,21 @@
 package com.example.sep4android.APIS;
 
 import com.example.sep4android.Models.ArchiveRoom;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ArchiveResponse {
 
-    private List<ArchiveRoom> archives;
+
+    @SerializedName("content")
+    @Expose
+    private ArrayList<ArchiveRoom> rooms;
 
 
-    public List<ArchiveRoom> getAllArchives() {
-        return archives;
+    public ArrayList<ArchiveRoom> getAllArchives() {
+        return rooms;
     }
 
 

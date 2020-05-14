@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sep4android.Models.ArchiveRoom;
 import com.example.sep4android.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private OnListItemClickedListener onListItemClickedListener;
     private List<ArchiveRoom> rooms;
+    private List<ArchiveRoom> countriesAll;
 
 
     public RoomAdapter(OnListItemClickedListener listener) {
@@ -36,12 +38,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
         if(rooms != null) {
            ArchiveRoom roomPosition = rooms.get(position);
-           holder.Room.setText((roomPosition.getRoomNumber()));
+           holder.Room.setText(String.valueOf((roomPosition.getRoomNumber())));
         }
     }
 
     public void setRooms(List<ArchiveRoom> rooms) {
         this.rooms = rooms;
+        this.countriesAll = new ArrayList<>(rooms);
         notifyDataSetChanged();
     }
 

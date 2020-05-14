@@ -6,7 +6,7 @@ import retrofit2.http.Path;
 
 
 public interface ArchiveAPI {
-    @GET("/api/archive/GetArchiveRooms/")
+    @GET("/api/archive/1/carbondioxide")
     Call<ArchiveResponse> getAllArchiveRooms();
 
 

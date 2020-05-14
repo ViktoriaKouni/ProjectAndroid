@@ -1,7 +1,13 @@
 package com.example.sep4android.Models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ArchiveRoom {
 
+
+    @SerializedName("id")
+    @Expose
     private int roomNumber;
     private CO2 co2;
 

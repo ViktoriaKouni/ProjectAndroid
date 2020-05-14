@@ -1,24 +1,19 @@
 package com.example.sep4android.ViewModels;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-import com.example.sep4android.Models.ArchiveRoom;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+
 import com.example.sep4android.Repositories.ArchiveRepository;
 
-import java.util.List;
-
-public class CO2ViewModel extends ViewModel {
+public class CO2ViewModel extends AndroidViewModel {
 
     private ArchiveRepository repository;
 
-    public CO2ViewModel()
+    public CO2ViewModel(@NonNull Application application)
     {
-        repository = ArchiveRepository.getInstance();
-    }
+        super(application);
+        repository = ArchiveRepository.getInstance(application); }
 
-    public LiveData<List<ArchiveRoom>> getArchiveRooms()
-    {
-        return repository.getArchiveRooms();
-    }
 }
