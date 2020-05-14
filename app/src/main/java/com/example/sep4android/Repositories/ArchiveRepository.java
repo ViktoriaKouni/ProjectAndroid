@@ -1,17 +1,17 @@
 package com.example.sep4android.Repositories;
 
+import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep4android.APIS.ArchiveAPI;
-import com.example.sep4android.APIS.ConditionsResponse;
+import com.example.sep4android.APIS.ArchiveResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
-import com.example.sep4android.Models.ArchiveDao;
 import com.example.sep4android.Models.ArchiveRoom;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,43 +20,41 @@ import retrofit2.Response;
 public class ArchiveRepository {
 
 
-
+    private MutableLiveData<ArrayList<ArchiveRoom>> rooms= new MutableLiveData<>();
     private static ArchiveRepository instance;
-    private ArchiveDao archiveDao;
 
 
-    private ArchiveRepository() {
-        archiveDao = ArchiveDao.getInstance();
+    private ArchiveRepository(Application application) {
+        getRooms();
     }
 
-    public static ArchiveRepository getInstance() {
+    public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
+        return rooms;
+    }
+
+    public static ArchiveRepository getInstance(Application application) {
         if (instance == null) {
-            instance = new ArchiveRepository();
+            instance = new ArchiveRepository(application);
         }
         return instance;
     }
 
-    public LiveData<List<ArchiveRoom>> getArchiveRooms() {
-        return archiveDao.getArchiveRooms();
-    }
 
-
-
-    /*public void getCo2Level(int roomNumber) {
+  public void getRooms() {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
-        Call<ConditionsResponse> call = archiveApi.getCo2Level(roomNumber);
-        call.enqueue(new Callback<ConditionsResponse>()
+        Call<ArchiveResponse> call = archiveApi.getAllArchiveRooms();
+        call.enqueue(new Callback<ArchiveResponse>()
         {
             @Override
-            public void onResponse(Call<ConditionsResponse> call, Response<ConditionsResponse> response) {
+            public void onResponse(Call<ArchiveResponse> call, Response<ArchiveResponse> response) {
                 if (response.code() == 200) {
-                    archive.setValue(response.body().getCo2Level());
+                   rooms.setValue(response.body().getAllArchives());
                 }
         }@Override
-        public void onFailure(Call<ConditionsResponse> call, Throwable t) {
+        public void onFailure(Call<ArchiveResponse> call, Throwable t) {
             Log.i("Retrofit", "Something went wrong :(");
         }
         });
-    }*/
+    }
 }
 
