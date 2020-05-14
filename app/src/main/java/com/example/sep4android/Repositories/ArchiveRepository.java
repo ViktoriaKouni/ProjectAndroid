@@ -10,8 +10,10 @@ import com.example.sep4android.APIS.ArchiveAPI;
 import com.example.sep4android.APIS.ArchiveResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
 import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.CO2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,10 +23,11 @@ public class ArchiveRepository {
 
 
     private MutableLiveData<ArrayList<ArchiveRoom>> rooms= new MutableLiveData<>();
+    private MutableLiveData<ArrayList<ArchiveRoom>> roomsTest= new MutableLiveData<>();
     private static ArchiveRepository instance;
 
 
-    private ArchiveRepository(Application application) {
+    private ArchiveRepository() {
 
         getRooms();
     }
@@ -32,13 +35,17 @@ public class ArchiveRepository {
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
         return rooms;
     }
+    public LiveData<ArrayList<ArchiveRoom>> getArchiveRoomsTest() {
+        return roomsTest;
+    }
 
-    public static ArchiveRepository getInstance(Application application) {
+    public static ArchiveRepository getInstance() {
         if (instance == null) {
-            instance = new ArchiveRepository(application);
+            instance = new ArchiveRepository();
         }
         return instance;
     }
+
 
 
   public void getRooms() {
@@ -50,6 +57,18 @@ public class ArchiveRepository {
             public void onResponse(Call<ArchiveResponse> call, Response<ArchiveResponse> response) {
                 if (response.code() == 200) {
                    rooms.setValue(response.body().getAllArchives());
+                   // all lower of this is api converting testing
+                    CO2 co21 = new CO2(13);
+                    CO2 co22 = new CO2(5);
+                    CO2 co23 = new CO2(16);
+                    ArchiveRoom room1 = new ArchiveRoom(1,co21);
+                    ArchiveRoom room2 = new ArchiveRoom(2,co22);
+                    ArchiveRoom room3 = new ArchiveRoom(3,co23);
+                    ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
+                    archiveRooms.add(room1);
+                    archiveRooms.add(room2);
+                    archiveRooms.add(room3);
+                    roomsTest.setValue(archiveRooms);
                 }
         }@Override
         public void onFailure(Call<ArchiveResponse> call, Throwable t) {

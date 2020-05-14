@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4android.Adapters.RoomAdapter;
 import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.NotificationService;
 import com.example.sep4android.R;
 import com.example.sep4android.ViewModels.ArchiveViewModel;
 
@@ -33,7 +34,6 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         adapter = new RoomAdapter( this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         System.out.println(viewModel.getArchiveRooms());
 
 
@@ -56,5 +56,11 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     public void onListItemClicked(int clickedItemIndex) {
         Intent intent = new Intent(this, CO2Activity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop() ;
+        startService( new Intent( this, NotificationService. class )) ;
     }
 }

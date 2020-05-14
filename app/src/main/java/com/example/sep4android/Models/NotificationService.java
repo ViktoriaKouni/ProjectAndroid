@@ -1,34 +1,66 @@
 package com.example.sep4android.Models;
 
-import android.app.NotificationChannel ;
-import android.app.NotificationManager ;
-import android.app.Service ;
-import android.content.Intent ;
-import android.os.Handler ;
-import android.os.IBinder ;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+
+import android.content.Intent;
+import android.os.Handler;
+import android.os.IBinder;
+
+import androidx.annotation.NonNull;
 
 import androidx.core.app.NotificationCompat;
-import com.example.sep4android.R;
+import androidx.lifecycle.LifecycleService;
 
-import java.util.Timer ;
-import java.util.TimerTask ;
-public class NotificationService extends Service {
+import androidx.lifecycle.Observer;
+
+
+import com.example.sep4android.R;
+import com.example.sep4android.Repositories.ArchiveRepository;
+import com.example.sep4android.Views.MainActivity;
+
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class NotificationService extends LifecycleService {
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
     private final static String default_notification_channel_id = "default" ;
+    private  boolean state = false;
     Timer timer ;
     TimerTask timerTask ;
-    int seconds = 20 ;
-    ArchiveDao archive;
+    int seconds = 15 ;
+    private int id=0;
+    private List<ArchiveRoom> archiveRooms;
+
     @Override
-    public IBinder onBind (Intent arg0) {
+    public void onCreate() {
+        super.onCreate();
+        ArchiveRepository archive = ArchiveRepository.getInstance();
+        archive.getArchiveRoomsTest().observe(this, new Observer<List<ArchiveRoom>>() {
+            @Override
+            public void onChanged(List<ArchiveRoom> rooms) {
+                archiveRooms = rooms;
+            }
+        });
+    }
+
+    public IBinder onBind (@NonNull Intent arg0) {
+        super.onBind(arg0);
         return null;
     }
     @Override
     public int onStartCommand (Intent intent , int flags , int startId) {
-        super .onStartCommand(intent , flags , startId) ;
-        startTimer() ;
-        archive = ArchiveDao.getInstance();
-        return START_STICKY ;
+        if(state ==false) {
+            state = true;
+            super.onStartCommand(intent, flags, startId);
+            startTimer();
+            return START_STICKY;
+        }
+        return START_STICKY;
     }
     //we are going to use a handler to be able to run in our TimerTask
     final Handler handler = new Handler() ;
@@ -43,23 +75,27 @@ public class NotificationService extends Service {
             public void run () {
                 handler.post( new Runnable() {
                     public void run () {
-                        if(archive.getWarningRoom().getCO2().getLevel() != -99)
-                        {
-                            createNotification(archive.getWarningRoom());
+                        for(int i=0;i<archiveRooms.size();i++) {
+                            if (archiveRooms.get(i).getCO2().getLevel()>7) {
+                                createNotification(archiveRooms.get(i));
+                            }
                         }
                     }
                 }) ;
             }
         } ;
     }
-    private void createNotification (ArchiveRoom warningRoom) {
+    private void createNotification (ArchiveRoom archiveRoom) {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService( NOTIFICATION_SERVICE ) ;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext() , default_notification_channel_id ) ;
         mBuilder.setContentTitle( "Warning" ) ;
-        mBuilder.setContentText( "CO2 level in room "+warningRoom.getRoomNumber()+" is undesired, current level: "+warningRoom.getCO2().getLevel() ) ;
-        mBuilder.setTicker( "CO2 level in room "+warningRoom.getRoomNumber()+" is undesired, current level: "+warningRoom.getCO2().getLevel() ) ;
+        mBuilder.setContentText( "ID "+id+" CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getLevel() ) ;
+        mBuilder.setTicker( "CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getLevel() ) ;
         mBuilder.setSmallIcon(R.drawable. ic_launcher_foreground ) ;
         mBuilder.setAutoCancel( true ) ;
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(contentIntent);
         if (android.os.Build.VERSION. SDK_INT >= android.os.Build.VERSION_CODES. O ) {
             int importance = NotificationManager. IMPORTANCE_HIGH ;
             NotificationChannel notificationChannel = new NotificationChannel( NOTIFICATION_CHANNEL_ID , "NOTIFICATION_CHANNEL_NAME" , importance) ;
@@ -68,6 +104,7 @@ public class NotificationService extends Service {
             mNotificationManager.createNotificationChannel(notificationChannel) ;
         }
         assert mNotificationManager != null;
+        id++;
         mNotificationManager.notify(( int ) System. currentTimeMillis () , mBuilder.build()) ;
     }
 }

@@ -18,14 +18,11 @@ public class ArchiveViewModel extends AndroidViewModel {
 
     public ArchiveViewModel(@NonNull Application application) {
         super(application);
-        repository = ArchiveRepository.getInstance(application);
+        repository = ArchiveRepository.getInstance();
     }
 
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms(){
         return repository.getArchiveRooms();
     }
-
-
-
 
 }

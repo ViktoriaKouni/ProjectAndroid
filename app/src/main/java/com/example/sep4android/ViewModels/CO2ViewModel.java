@@ -14,6 +14,6 @@ public class CO2ViewModel extends AndroidViewModel {
     public CO2ViewModel(@NonNull Application application)
     {
         super(application);
-        repository = ArchiveRepository.getInstance(application); }
+        repository = ArchiveRepository.getInstance(); }
 
 }
