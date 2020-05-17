@@ -76,6 +76,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         public void onClick(View v) {
             onListItemClickedListener.onListItemClicked(getAdapterPosition());
         }
+
     }
     public interface OnListItemClickedListener {
         void onListItemClicked(int clickedItemIndex);

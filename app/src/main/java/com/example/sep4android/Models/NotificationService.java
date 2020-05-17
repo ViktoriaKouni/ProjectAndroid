@@ -32,7 +32,7 @@ public class NotificationService extends LifecycleService {
     private  boolean state = false;
     Timer timer ;
     TimerTask timerTask ;
-    int seconds = 15 ;
+    int seconds = 360 ;
     private int id=0;
     private List<ArchiveRoom> archiveRooms;
 

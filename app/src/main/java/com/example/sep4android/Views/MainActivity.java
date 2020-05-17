@@ -56,6 +56,7 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     @Override
     public void onListItemClicked(int clickedItemIndex) {
         Intent intent = new Intent(this, ConditionActivity.class);
+        intent.putExtra("number", clickedItemIndex+1);
         startActivity(intent);
     }
 

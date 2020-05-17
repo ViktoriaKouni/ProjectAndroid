@@ -8,22 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.sep4android.Models.ArchiveRoom;
 import com.example.sep4android.R;
-import com.example.sep4android.ViewModels.ArchiveViewModel;
-import com.example.sep4android.ViewModels.CO2ViewModel;
 import com.example.sep4android.ViewModels.ConditionsViewModel;
 import com.example.sep4android.Views.ConditionActivity;
-
-import java.util.List;
 
 public class CO2Fragment extends Fragment {
 
         private TextView CO2Value;
-        private CO2ViewModel co2ViewModel;
         private ConditionsViewModel conditionsViewModel;
         private int roomNumber;
         Context context;
@@ -31,11 +23,15 @@ public class CO2Fragment extends Fragment {
         public CO2Fragment(ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
             context = conditionActivity;
             this.conditionsViewModel = conditionsViewModel;
+            roomNumber = conditionActivity.getRoomNumber();
         }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View rootView = inflater.inflate(R.layout.fragment_co2, container, false);
+       CO2Value = rootView.findViewById(R.id.co2Value);
+       // set value as value
+       CO2Value.setText(""+conditionsViewModel.getArchiveRoomCO2Level(roomNumber));
        return rootView;
 
 //        super.onCreate(savedInstanceState);

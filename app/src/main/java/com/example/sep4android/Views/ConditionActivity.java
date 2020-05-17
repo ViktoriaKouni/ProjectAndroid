@@ -19,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ConditionActivity extends AppCompatActivity {
     private ConditionsViewModel viewModel;
+    private int roomNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,23 @@ public class ConditionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_condition);
 
         viewModel = new ViewModelProvider(this).get(ConditionsViewModel.class);
+        Bundle bundle = getIntent().getExtras();
+
+        if (bundle != null && bundle.containsKey("number")) {
+            roomNumber = bundle.getInt("number");
+
+        }
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new CO2Fragment(ConditionActivity.this, viewModel)).commit();
+    }
+
+    public int getRoomNumber()
+    {
+        return roomNumber;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

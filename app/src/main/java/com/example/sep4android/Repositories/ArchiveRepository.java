@@ -33,7 +33,7 @@ public class ArchiveRepository {
     }
 
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
-        return rooms;
+        return roomsTest;
     }
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRoomsTest() {
         return roomsTest;
@@ -55,26 +55,31 @@ public class ArchiveRepository {
         {
             @Override
             public void onResponse(Call<ArchiveResponse> call, Response<ArchiveResponse> response) {
+                CO2 co21 = new CO2(13);
+                CO2 co22 = new CO2(5);
+                CO2 co23 = new CO2(16);
+                ArchiveRoom room1 = new ArchiveRoom(1,co21);
+                ArchiveRoom room2 = new ArchiveRoom(2,co22);
+                ArchiveRoom room3 = new ArchiveRoom(3,co23);
+                ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
+                archiveRooms.add(room1);
+                archiveRooms.add(room2);
+                archiveRooms.add(room3);
+                roomsTest.setValue(archiveRooms);
                 if (response.code() == 200) {
                    rooms.setValue(response.body().getAllArchives());
                    // all lower of this is api converting testing
-                    CO2 co21 = new CO2(13);
-                    CO2 co22 = new CO2(5);
-                    CO2 co23 = new CO2(16);
-                    ArchiveRoom room1 = new ArchiveRoom(1,co21);
-                    ArchiveRoom room2 = new ArchiveRoom(2,co22);
-                    ArchiveRoom room3 = new ArchiveRoom(3,co23);
-                    ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
-                    archiveRooms.add(room1);
-                    archiveRooms.add(room2);
-                    archiveRooms.add(room3);
-                    roomsTest.setValue(archiveRooms);
                 }
         }@Override
         public void onFailure(Call<ArchiveResponse> call, Throwable t) {
             Log.i("Retrofit", "Something went wrong :(");
         }
         });
+    }
+
+    public int getArchiveRoomCO2Level(int roomNumber)
+    {
+        return roomsTest.getValue().get(roomNumber-1).getCO2().getLevel();
     }
 }
 
