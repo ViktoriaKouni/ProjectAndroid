@@ -74,11 +74,11 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            onListItemClickedListener.onListItemClicked(getAdapterPosition());
+            onListItemClickedListener.onListItemClicked(rooms.get(getAdapterPosition()).getRoomNumber());
         }
 
     }
     public interface OnListItemClickedListener {
-        void onListItemClicked(int clickedItemIndex);
+        void onListItemClicked(int roomNumber);
     }
 }

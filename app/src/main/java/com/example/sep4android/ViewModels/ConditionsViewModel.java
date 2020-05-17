@@ -19,7 +19,7 @@ public class ConditionsViewModel extends AndroidViewModel {
         repository = ArchiveRepository.getInstance();
     }
 
-    public int getArchiveRoomCO2Level(int roomNumber){
-        return repository.getArchiveRoomCO2Level(roomNumber);
+    public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms(){
+        return repository.getArchiveRooms();
     }
 }

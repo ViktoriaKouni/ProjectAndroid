@@ -48,15 +48,14 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
             @Override
             public void onChanged(List<ArchiveRoom> rooms) {
                 adapter.setRooms(rooms);
-                adapter.notifyDataSetChanged();
             }
         });
     }
 
     @Override
-    public void onListItemClicked(int clickedItemIndex) {
+    public void onListItemClicked(int roomNumber) {
         Intent intent = new Intent(this, ConditionActivity.class);
-        intent.putExtra("number", clickedItemIndex+1);
+        intent.putExtra("number", roomNumber);
         startActivity(intent);
     }
 

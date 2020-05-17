@@ -66,20 +66,14 @@ public class ArchiveRepository {
                 archiveRooms.add(room2);
                 archiveRooms.add(room3);
                 roomsTest.setValue(archiveRooms);
-                if (response.code() == 200) {
-                   rooms.setValue(response.body().getAllArchives());
-                   // all lower of this is api converting testing
-                }
+              //  if (response.code() == 200) {
+              //     rooms.setValue(response.body().getAllArchives());
+             //   }
         }@Override
         public void onFailure(Call<ArchiveResponse> call, Throwable t) {
             Log.i("Retrofit", "Something went wrong :(");
         }
         });
-    }
-
-    public int getArchiveRoomCO2Level(int roomNumber)
-    {
-        return roomsTest.getValue().get(roomNumber-1).getCO2().getLevel();
     }
 }
 
