@@ -11,6 +11,6 @@ public interface ArchiveAPI {
 
 
     @GET("api/v2/archive/GetCo2/{roomNumber}")
-    Call<ConditionsResponse> getCo2Level(@Path("roomNumber") int roomNumber);
+    Call<ConditionsResponse> getRoomConditionLevel(@Path("roomNumber") int roomNumber);
 }
 

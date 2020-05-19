@@ -3,22 +3,22 @@ package com.example.sep4android.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class CO2 {
 
+public class CO2 implements Condition
+{
+/*
 
     @SerializedName("value")
-    @Expose
-    private int level;
+    @Expose*/
+    private double value;
 
-    public CO2(int level){
-        this.level=level;
+    public CO2(double value){
+        this.value=value;
     }
 
-    public int getLevel() {
-        return level;
+    @Override
+    public double getValue() {
+        return value;
     }
 
-    public void setlevel(int level) {
-        this.level = level;
-    }
 }

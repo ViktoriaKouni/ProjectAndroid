@@ -22,7 +22,7 @@ public class CO2Fragment extends Fragment {
         private TextView CO2Value;
         private ConditionsViewModel conditionsViewModel;
         private int roomNumber;
-        Context context;
+        private Context context;
     private List<ArchiveRoom> archiveRooms;
 
         public CO2Fragment(ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
@@ -43,7 +43,7 @@ public class CO2Fragment extends Fragment {
             {
                 if(archiveRooms.get(i).getRoomNumber()==roomNumber)
                 {
-                    CO2Value.setText(""+ archiveRooms.get(i).getCO2().getLevel());
+                    CO2Value.setText(""+ archiveRooms.get(i).getCO2().getValue());
                 }
             }
     }

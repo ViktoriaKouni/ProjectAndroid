@@ -40,7 +40,7 @@ public class NotificationService extends LifecycleService {
     public void onCreate() {
         super.onCreate();
         ArchiveRepository archive = ArchiveRepository.getInstance();
-        archive.getArchiveRoomsTest().observe(this, new Observer<List<ArchiveRoom>>() {
+        archive.getArchiveRooms().observe(this, new Observer<List<ArchiveRoom>>() {
             @Override
             public void onChanged(List<ArchiveRoom> rooms) {
                 archiveRooms = rooms;
@@ -54,7 +54,7 @@ public class NotificationService extends LifecycleService {
     }
     @Override
     public int onStartCommand (Intent intent , int flags , int startId) {
-        if(state ==false) {
+        if(!state) {
             state = true;
             super.onStartCommand(intent, flags, startId);
             startTimer();
@@ -76,7 +76,7 @@ public class NotificationService extends LifecycleService {
                 handler.post( new Runnable() {
                     public void run () {
                         for(int i=0;i<archiveRooms.size();i++) {
-                            if (archiveRooms.get(i).getCO2().getLevel()>7) {
+                            if (archiveRooms.get(i).getCO2().getValue()>7) {
                                 createNotification(archiveRooms.get(i));
                             }
                         }
@@ -89,8 +89,8 @@ public class NotificationService extends LifecycleService {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService( NOTIFICATION_SERVICE ) ;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext() , default_notification_channel_id ) ;
         mBuilder.setContentTitle( "Warning" ) ;
-        mBuilder.setContentText( "ID "+id+" CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getLevel() ) ;
-        mBuilder.setTicker( "CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getLevel() ) ;
+        mBuilder.setContentText( "ID "+id+" CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getValue() ) ;
+        mBuilder.setTicker( "CO2 level in room "+archiveRoom.getRoomNumber()+" is undesired, current level: "+archiveRoom.getCO2().getValue() ) ;
         mBuilder.setSmallIcon(R.drawable. ic_launcher_foreground ) ;
         mBuilder.setAutoCancel( true ) ;
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,

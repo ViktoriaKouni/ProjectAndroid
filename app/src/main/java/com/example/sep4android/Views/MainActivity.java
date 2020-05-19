@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4android.Adapters.RoomAdapter;
-import com.example.sep4android.Fragments.CO2Fragment;
 import com.example.sep4android.Models.ArchiveRoom;
 import com.example.sep4android.Models.NotificationService;
 import com.example.sep4android.R;
