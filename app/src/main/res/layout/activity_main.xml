@@ -7,19 +7,10 @@
     android:orientation="vertical"
     tools:context=".Views.MainActivity">
 
-
-    <TextView
-        android:id="@+id/selectRoom"
-        android:layout_width="421dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Select an archive room"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/tool"
+        >
+    </include>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rooms"
