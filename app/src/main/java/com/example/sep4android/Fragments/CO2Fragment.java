@@ -20,6 +20,7 @@ import java.util.List;
 public class CO2Fragment extends Fragment {
 
         private TextView CO2Value;
+        private TextView roomID;
         private ConditionsViewModel conditionsViewModel;
         private int roomNumber;
         private Context context;
@@ -44,6 +45,8 @@ public class CO2Fragment extends Fragment {
                 if(archiveRooms.get(i).getRoomNumber()==roomNumber)
                 {
                     CO2Value.setText(""+ archiveRooms.get(i).getCO2().getValue());
+                    roomID.setText(""+archiveRooms.get(i).getRoomNumber());
+
                 }
             }
     }
@@ -52,6 +55,7 @@ public class CO2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View rootView = inflater.inflate(R.layout.fragment_co2, container, false);
        CO2Value = rootView.findViewById(R.id.co2Value);
+       roomID=rootView.findViewById(R.id.roomID);
        return rootView;
     }
 }
