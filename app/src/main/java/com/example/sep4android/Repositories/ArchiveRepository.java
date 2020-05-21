@@ -9,7 +9,6 @@ import com.example.sep4android.APIS.ArchiveAPI;
 import com.example.sep4android.APIS.ArchiveResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
 import com.example.sep4android.Models.ArchiveRoom;
-import com.example.sep4android.Models.CO2;
 
 import java.util.ArrayList;
 
@@ -26,7 +25,7 @@ public class ArchiveRepository {
 
 
     private ArchiveRepository() {
-        CO2 co21 = new CO2(13);
+        /*CO2 co21 = new CO2(13);
         CO2 co22 = new CO2(5);
         CO2 co23 = new CO2(16);
         ArchiveRoom room1 = new ArchiveRoom(1,co21);
@@ -36,12 +35,12 @@ public class ArchiveRepository {
         archiveRooms.add(room1);
         archiveRooms.add(room2);
         archiveRooms.add(room3);
-        roomsTest.setValue(archiveRooms);
+        roomsTest.setValue(archiveRooms);*/
         getRooms();
     }
 
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
-        return roomsTest;
+        return rooms;
     }
 
     public static ArchiveRepository getInstance() {

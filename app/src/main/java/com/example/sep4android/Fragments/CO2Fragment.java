@@ -44,7 +44,7 @@ public class CO2Fragment extends Fragment {
             {
                 if(archiveRooms.get(i).getRoomNumber()==roomNumber)
                 {
-                    CO2Value.setText(""+ archiveRooms.get(i).getCO2().getValue());
+                    CO2Value.setText(""+ archiveRooms.get(i).getCO2());
                     roomID.setText(""+archiveRooms.get(i).getRoomNumber());
 
                 }

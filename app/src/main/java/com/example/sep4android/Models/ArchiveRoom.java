@@ -9,11 +9,13 @@ public class ArchiveRoom {
     @SerializedName("id")
     @Expose
     private int roomNumber;
-    private Condition co2;
-    private Condition humidity;
-    private Condition temperature;
+    @SerializedName("value")
+    @Expose
+    private double co2;
+    private double humidity;
+    private double temperature;
 
-    public ArchiveRoom(int roomNumber,Condition co2){
+    public ArchiveRoom(int roomNumber,int co2){
         this.roomNumber=roomNumber;
         this.co2=co2;
     }
@@ -22,12 +24,12 @@ public class ArchiveRoom {
         return roomNumber;
     }
 
-    public Condition getCO2() {
+    public double getCO2() {
         return co2;
     }
 
-    public Condition getHumidity() {return  humidity;}
+    public double getHumidity() {return  humidity;}
 
-    public Condition getTemperature(){return temperature;}
+    public double getTemperature(){return temperature;}
 }
 

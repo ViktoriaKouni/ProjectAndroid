@@ -38,7 +38,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
         if(rooms != null) {
            ArchiveRoom roomPosition = rooms.get(position);
-           holder.Room.setText(String.valueOf((roomPosition.getRoomNumber())));
+            holder.Room.setText(String.valueOf((roomPosition.getRoomNumber())));
         }
     }
 
@@ -66,6 +66,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView, OnListItemClickedListener listener) {
             super(itemView);
             Room = itemView.findViewById(R.id.roomID);
+
             parentLayout = itemView.findViewById(R.id.parent_layout);
             onListItemClickedListener = listener;
             itemView.setOnClickListener(this);
