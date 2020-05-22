@@ -1,14 +1,23 @@
 package com.example.sep4android.Models;
 
-public class Temperature implements Condition
+public class Temperature
 {
     private double value;
     //todo time variable, for future
 
     public Temperature(double value) { this.value = value; }
 
-    @Override
     public double getValue() {
         return value;    }
+
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof Temperature))
+        {
+            return false;
+        }
+        Temperature other = (Temperature) obj;
+        return value == other.getValue();
+    }
 
 }

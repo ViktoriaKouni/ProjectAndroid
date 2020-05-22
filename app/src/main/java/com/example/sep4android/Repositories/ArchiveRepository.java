@@ -11,8 +11,11 @@ import com.example.sep4android.APIS.ArchiveAPI;
 import com.example.sep4android.APIS.ArchiveResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
 import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.CO2;
+import com.example.sep4android.Models.OptimalValues;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,19 +48,28 @@ public class ArchiveRepository
   public void getRooms()
   {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
-        Call<ArchiveResponse> call = archiveApi.getAllArchiveRooms();
-        call.enqueue(new Callback<ArchiveResponse>()
+        Call<List<ArchiveResponse>> call = archiveApi.getAllArchiveRooms();
+        call.enqueue(new Callback<List<ArchiveResponse>>()
         {
             @Override
-            public void onResponse(Call<ArchiveResponse> call, Response<ArchiveResponse> response)
+            public void onResponse(Call<List<ArchiveResponse>> call, Response<List<ArchiveResponse>> response)
             {
-               if (response.code() == 200 && !rooms.equals(response.body().getAllArchives()))
+               if (response.code() == 200 )
                {
-                   rooms.setValue(response.body().getAllArchives());
+                   ArrayList<ArchiveRoom> roomList = new ArrayList<>();
+                   for(int i = 0;i<response.body().size();i++)
+                   {
+                       ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
+                                                            response.body().get(i).getArchive().getName(),
+                                                            response.body().get(i).getCo2(),
+                                                            response.body().get(i).getArchive().getOptimalValues());
+                       roomList.add(local);
+                   }
+                   rooms.setValue(roomList);
                }
         }@Override
-        public void onFailure(Call<ArchiveResponse> call, Throwable t) {
-            Log.i("Retrofit", "Something went wrong :(");
+        public void onFailure(Call<List<ArchiveResponse>> call, Throwable t) {
+            Log.i("Retrofit", "Something went wrong :("+ t.toString());
         }
         });
   }
@@ -65,9 +77,9 @@ public class ArchiveRepository
     private void getRoomsTest( )
     {
         // testing data
-        ArchiveRoom room1 = new ArchiveRoom(1,13);
-        ArchiveRoom room2 = new ArchiveRoom(2,5);
-        ArchiveRoom room3 = new ArchiveRoom(3,16);
+        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new OptimalValues(7));
+        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new OptimalValues(5));
+        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new OptimalValues(69));
         ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
         archiveRooms.add(room1);
         archiveRooms.add(room2);
@@ -81,9 +93,9 @@ public class ArchiveRepository
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ArchiveRoom room1 = new ArchiveRoom(2,13);
-                ArchiveRoom room2 = new ArchiveRoom(7,5);
-                ArchiveRoom room3 = new ArchiveRoom(3,16);
+                ArchiveRoom room1 = new ArchiveRoom(2,"Angel",new CO2(5),new OptimalValues(7));
+                ArchiveRoom room2 = new ArchiveRoom(7,"Gay",new CO2(9),new OptimalValues(5));
+                ArchiveRoom room3 = new ArchiveRoom(3,"True Story",new CO2(69),new OptimalValues(69));
                 ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
                 archiveRooms.add(room1);
                 archiveRooms.add(room2);

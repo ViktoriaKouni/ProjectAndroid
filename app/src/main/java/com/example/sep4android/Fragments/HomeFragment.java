@@ -19,7 +19,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     private TextView CO2Value;
-    private TextView roomNumber;
+    private TextView roomName;
     private ArchiveRoom archiveRoom;
 
     public HomeFragment(final ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
@@ -33,8 +33,8 @@ public class HomeFragment extends Fragment {
                         if(!rooms.get(i).equals(archiveRoom))
                         {
                             archiveRoom = rooms.get(i);
-                            CO2Value.setText(""+ rooms.get(i).getCO2());
-                            roomNumber.setText(""+ rooms.get(i).getRoomNumber());
+                            CO2Value.setText(""+ archiveRoom.getCO2().getValue());
+                            roomName.setText(""+archiveRoom.getRoomName());
                             //todo refresh
                         }
                         break;
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_co2, container, false);
         CO2Value = rootView.findViewById(R.id.co2Value);
-        roomNumber=rootView.findViewById(R.id.roomNumber);
+        roomName =rootView.findViewById(R.id.archiveRoom);
         return rootView;
     }
 }

@@ -5,30 +5,35 @@ import com.google.gson.annotations.SerializedName;
 
 public class ArchiveRoom {
 
-
-    @SerializedName("id")
-    @Expose
     private int roomNumber;
-    @SerializedName("value")
-    @Expose
-    private double co2;
-    private double humidity;
-    private double temperature;
+    private String roomName;
+    private CO2 co2;
+    private Humidity humidity;
+    private Temperature temperature;
+    private OptimalValues optimalValues;
 
-    public ArchiveRoom(int roomNumber,double co2){
+    public ArchiveRoom(int roomNumber,String roomName,CO2 co2,OptimalValues optimalValues){
         this.roomNumber=roomNumber;
+        this.roomName=roomName;
         this.co2=co2;
+        this.optimalValues = optimalValues;
     }
 
     public int getRoomNumber() {
         return roomNumber;
     }
 
-    public double getCO2() { return co2; }
+    public String getRoomName() {
+        return roomName;
+    }
 
-    public double getHumidity() {return  humidity;}
+    public CO2 getCO2() { return co2; }
 
-    public double getTemperature(){return temperature;}
+    public Humidity getHumidity() {return  humidity;}
+
+    public Temperature getTemperature(){return temperature;}
+
+    public OptimalValues getOptimalValues() { return optimalValues; }
 
     public boolean equals(Object obj)
     {
@@ -37,7 +42,7 @@ public class ArchiveRoom {
             return false;
         }
         ArchiveRoom other = (ArchiveRoom) obj;
-        return co2 ==other.getCO2() && humidity==(other.getHumidity()) && temperature==(other.getTemperature()) && roomNumber == (other.getRoomNumber());
+        return co2.equals(other.getCO2()) && roomNumber == (other.getRoomNumber()) && optimalValues.equals(other.getOptimalValues()) && roomName.equals(other.getRoomName());
     }
 }
 

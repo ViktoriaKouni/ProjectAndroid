@@ -1,7 +1,12 @@
 package com.example.sep4android.Models;
 
-public class CO2 implements Condition
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class CO2
 {
+    @SerializedName("value")
+    @Expose
     private double value;
     //todo time variable, for future
 
@@ -9,9 +14,18 @@ public class CO2 implements Condition
         this.value=value;
     }
 
-    @Override
     public double getValue() {
         return value;
+    }
+
+    public boolean equals(Object obj)
+    {
+        if (!(obj instanceof CO2))
+        {
+            return false;
+        }
+        CO2 other = (CO2) obj;
+        return value == other.getValue();
     }
 
 }

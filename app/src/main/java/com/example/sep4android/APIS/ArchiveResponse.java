@@ -1,24 +1,48 @@
 package com.example.sep4android.APIS;
 
-import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.CO2;
+import com.example.sep4android.Models.OptimalValues;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 
 public class ArchiveResponse {
 
 
-    @SerializedName("content")
+
+    private Archive archive;
+    @SerializedName("carbonDioxide")
     @Expose
-    private ArrayList<ArchiveRoom> rooms;
+    private CO2 co2;
 
+    public class Archive
+    {
+        @SerializedName("id")
+        @Expose
+        private int roomNumber;
+        private String name;
+        @SerializedName("optimalValuesEntity")
+        @Expose
+        private OptimalValues optimalValues;
 
-    public ArrayList<ArchiveRoom> getAllArchives() {
-        return rooms;
+        public int getRoomNumber() {
+            return roomNumber;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public OptimalValues getOptimalValues() {
+            return optimalValues;
+        }
     }
 
+    public Archive getArchive() {
+        return archive;
+    }
 
-
+    public CO2 getCo2() {
+        return co2;
+    }
 
 }
