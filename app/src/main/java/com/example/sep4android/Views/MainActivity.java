@@ -1,7 +1,11 @@
 package com.example.sep4android.Views;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -11,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4android.Adapters.RoomAdapter;
 import com.example.sep4android.Models.ArchiveRoom;
-import com.example.sep4android.Models.NotificationService;
+import com.example.sep4android.Models.NotificationJobScheduler;
+import com.example.sep4android.Models.UpdateService;
 import com.example.sep4android.R;
 import com.example.sep4android.ViewModels.ArchiveViewModel;
 
@@ -27,17 +32,15 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setViewModel();
-
         recyclerView = findViewById(R.id.rooms);
         adapter = new RoomAdapter( this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        System.out.println(viewModel.getArchiveRooms());
-
-
+        scheduleNotifications();
+        scheduleUpdates();
     }
+
 
     public void setViewModel() {
         viewModel = new ViewModelProvider(this).get(ArchiveViewModel.class);
@@ -58,9 +61,32 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         startActivity(intent);
     }
 
-    @Override
-    protected void onStop () {
-        super.onStop() ;
-        startService( new Intent( this, NotificationService. class )) ;
+    private void scheduleNotifications() {
+        ComponentName name = new ComponentName(this, NotificationJobScheduler.class);
+        JobInfo info = new JobInfo.Builder(1,name)
+                .setPersisted(true)
+                .setPeriodic(15*60*1000)
+                .build();
+        JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        job.schedule(info);
+        Log.i("Retrofit", "Start notification scheduler");
     }
+    // not sure we need it
+    public void StopNotifications()
+    {
+        JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        job.cancel(1);
+        Log.i("Retrofit", "Job cancelled");
+    }
+
+    private void scheduleUpdates()
+    {
+        startService( new Intent( this, UpdateService. class )) ;
+    }
+//todo to thing when and how we want this to work
+    public void StopUpdates()
+    {
+        stopService( new Intent( this, UpdateService. class )) ;
+    }
+
 }

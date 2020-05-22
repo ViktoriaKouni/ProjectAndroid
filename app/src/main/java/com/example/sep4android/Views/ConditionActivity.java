@@ -29,7 +29,6 @@ public class ConditionActivity extends AppCompatActivity {
 
         if (bundle != null && bundle.containsKey("number")) {
             roomNumber = bundle.getInt("number");
-
         }
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
