@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.sep4android.Fragments.CO2Fragment;
+import com.example.sep4android.Fragments.HomeFragment;
 import com.example.sep4android.Fragments.HumidityFragment;
 import com.example.sep4android.Fragments.TemperatureFragment;
 import com.example.sep4android.R;
@@ -35,7 +36,7 @@ public class ConditionActivity extends AppCompatActivity {
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new CO2Fragment(ConditionActivity.this, viewModel)).commit();
+                new HomeFragment(ConditionActivity.this, viewModel)).commit();
     }
 
     public int getRoomNumber()
@@ -50,8 +51,11 @@ public class ConditionActivity extends AppCompatActivity {
                     Fragment fragment = null;
 
                     switch (menuItem.getItemId()) {
+                        case R.id.nav_home:
+                            fragment = new HomeFragment(ConditionActivity.this, viewModel);
+                            break;
                         case R.id.nav_CO2:
-                            fragment = new CO2Fragment(ConditionActivity.this, viewModel);
+                            fragment = new CO2Fragment();
                         break;
                         case R.id.nav_humidity:
                             fragment = new HumidityFragment();
