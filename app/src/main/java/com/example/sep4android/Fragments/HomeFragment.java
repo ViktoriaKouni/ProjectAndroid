@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 
 import com.example.sep4android.Models.ArchiveRoom;
@@ -34,8 +35,7 @@ public class HomeFragment extends Fragment {
                         {
                             archiveRoom = rooms.get(i);
                             CO2Value.setText(""+ archiveRoom.getCO2().getValue());
-                            roomName.setText(""+archiveRoom.getRoomName());
-                            //todo refresh
+                            roomName.setText(""+ archiveRoom.getRoomName());
                         }
                         break;
                     }
@@ -51,4 +51,5 @@ public class HomeFragment extends Fragment {
         roomName =rootView.findViewById(R.id.archiveRoom);
         return rootView;
     }
+
 }
