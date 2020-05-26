@@ -49,8 +49,6 @@ public class NotificationJobScheduler extends JobService {
                 public void run() {
                     // Do something after delay for first run
                     first = true;
-                    //choose hardcoded data or api
-                    //doWorkTest(params); //hardcoded
                     doWork(params);     //api
                 }
             }, 30000);
@@ -58,8 +56,6 @@ public class NotificationJobScheduler extends JobService {
         }
         else
         {
-            //choose hardcoded data or api
-            //doWorkTest(params); //hardcoded
             doWork(params);     //api
         }
         return true;
@@ -85,22 +81,7 @@ public class NotificationJobScheduler extends JobService {
                         roomList.add(local);
                     }
                     archiveRooms = roomList;
-                    for(int i=0;i<archiveRooms.size();i++)
-                    {
-                        //current 5   optimal 3
-                        double difference;
-                        difference = archiveRooms.get(i).getCO2().getValue()-archiveRooms.get(i).getOptimalValues().getOptimalCO2();
-                        if (difference>=offsetValue)
-                        {
-                            createNotification(archiveRooms.get(i),difference,true);
-                            Log.i("Retrofit", "Create notification");
-                        }
-                        if (difference<0 && difference*(-1)>=offsetValue)
-                        {
-                            createNotification(archiveRooms.get(i),difference*(-1),false);
-                            Log.i("Retrofit", "Create notification");
-                        }
-                    }
+                    checkDataForNotification();
                     jobFinished(params,false);
                 }
             }@Override
@@ -110,34 +91,6 @@ public class NotificationJobScheduler extends JobService {
         });
     }
 
-    public void doWorkTest(JobParameters params)
-    {
-        // testing data
-        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new Temperature(7),new Humidity(31),new OptimalValues(7,9,13));
-        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new Temperature(8),new Humidity(78),new OptimalValues(5,8,3));
-        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new Temperature(14),new Humidity(61),new OptimalValues(69,6,33));
-        ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
-        archiveRooms.add(room1);
-        archiveRooms.add(room2);
-        archiveRooms.add(room3);
-        for(int i=0;i<archiveRooms.size();i++)
-            {
-                //current 5   optimal 3
-                 double difference;
-                 difference = archiveRooms.get(i).getCO2().getValue()-archiveRooms.get(i).getOptimalValues().getOptimalCO2();
-                if (difference>=offsetValue)
-                {
-                    createNotification(archiveRooms.get(i),difference,true);
-                    Log.i("Retrofit", "Create notification");
-                }
-                if (difference<0 && difference*(-1)>=offsetValue)
-                {
-                    createNotification(archiveRooms.get(i),difference*(-1),false);
-                    Log.i("Retrofit", "Create notification");
-                }
-            }
-        jobFinished(params,false);
-    }
 
     @Override
     public boolean onStopJob(JobParameters params) {
@@ -145,20 +98,47 @@ public class NotificationJobScheduler extends JobService {
         return true;
     }
 
-    private void createNotification (ArchiveRoom archiveRoom,double difference,boolean higher) {
+    void checkDataForNotification()
+    {
+        for(int i=0;i<archiveRooms.size();i++) {
+            double differenceCO2;
+            double differenceTemperature;
+            double differenceHumidity;
+            differenceCO2 = archiveRooms.get(i).getCO2().getValue() - archiveRooms.get(i).getOptimalValues().getOptimalCO2();
+            differenceTemperature = archiveRooms.get(i).getTemperature().getValue() - archiveRooms.get(i).getOptimalValues().getOptimalTemperature();
+            differenceHumidity = archiveRooms.get(i).getHumidity().getValue() - archiveRooms.get(i).getOptimalValues().getOptimalHumidity();
+            if (differenceCO2 != 0 || differenceTemperature != 0 || differenceHumidity != 0) {
+                String notificationText;
+                notificationText = "Following measurements are undesired in room " + archiveRooms.get(i).getRoomName() + ":";
+                if (differenceCO2 >= offsetValue) {
+                    notificationText += "\nCO2 level is higher by " + differenceCO2 + " currently being " + archiveRooms.get(i).getCO2().getValue();
+                }
+                if (differenceCO2 < 0 && differenceCO2 * (-1) >= offsetValue) {
+                    notificationText += "\nCO2 level is lower by " + differenceCO2 * (-1) + " currently being " + archiveRooms.get(i).getCO2().getValue();
+                }
+                if (differenceTemperature >= offsetValue) {
+                    notificationText += "\nTemperature level is higher by " + differenceTemperature + " currently being " + archiveRooms.get(i).getTemperature().getValue();
+                }
+                if (differenceTemperature < 0 && differenceTemperature * (-1) >= offsetValue) {
+                    notificationText += "\nTemperature level is lower by " + differenceTemperature * (-1) + " currently being " + archiveRooms.get(i).getTemperature().getValue();
+                }
+                if (differenceHumidity >= offsetValue) {
+                    notificationText += "\nHumidity level is higher by " + differenceHumidity + " currently being " + archiveRooms.get(i).getHumidity().getValue();
+                }
+                if (differenceHumidity < 0 && differenceHumidity * (-1) >= offsetValue) {
+                    notificationText += "\nHumidity level is lower by " + differenceHumidity * (-1) + " currently being " + archiveRooms.get(i).getHumidity().getValue();
+                }
+                createNotification(notificationText);
+            }
+        }
+    }
+
+    private void createNotification (String notificationText) {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService( NOTIFICATION_SERVICE ) ;
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext() , default_notification_channel_id ) ;
         mBuilder.setContentTitle( "Warning" ) ;
-        if(higher == true)
-        {
-            mBuilder.setContentText( "CO2 level in room "+archiveRoom.getRoomName()+" is undesired, being higher by "+ difference + " current level: "+archiveRoom.getCO2().getValue() ) ;
-            mBuilder.setTicker( "CO2 level in room "+archiveRoom.getRoomName()+" is undesired, being higher by "+ difference + " current level: "+archiveRoom.getCO2().getValue() ) ;
-        }
-        else if(!higher)
-        {
-            mBuilder.setContentText( "CO2 level in room "+archiveRoom.getRoomName()+" is undesired, being lower by "+ difference+" current level: "+archiveRoom.getCO2().getValue() ) ;
-            mBuilder.setTicker( "CO2 level in room "+archiveRoom.getRoomName()+" is undesired, being lower by "+ difference+" current level: "+archiveRoom.getCO2().getValue() ) ;
-        }
+        mBuilder.setTicker( "Undesired measurements" ) ;
+        mBuilder.setContentText(notificationText);
         mBuilder.setStyle(new NotificationCompat.BigTextStyle());
         mBuilder.setSmallIcon(R.drawable. ic_launcher_foreground ) ;
         mBuilder.setAutoCancel( true ) ;
