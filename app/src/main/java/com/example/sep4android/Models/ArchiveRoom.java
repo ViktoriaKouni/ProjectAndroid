@@ -12,10 +12,12 @@ public class ArchiveRoom {
     private Temperature temperature;
     private OptimalValues optimalValues;
 
-    public ArchiveRoom(int roomNumber,String roomName,CO2 co2,OptimalValues optimalValues){
+    public ArchiveRoom(int roomNumber,String roomName,CO2 co2,Temperature temperature,Humidity humidity,OptimalValues optimalValues){
         this.roomNumber=roomNumber;
         this.roomName=roomName;
         this.co2=co2;
+        this.temperature = temperature;
+        this.humidity = humidity;
         this.optimalValues = optimalValues;
     }
 
@@ -42,7 +44,7 @@ public class ArchiveRoom {
             return false;
         }
         ArchiveRoom other = (ArchiveRoom) obj;
-        return co2.equals(other.getCO2()) && roomNumber == (other.getRoomNumber()) && optimalValues.equals(other.getOptimalValues()) && roomName.equals(other.getRoomName());
+        return co2.equals(other.getCO2()) &&temperature.equals(other.getTemperature())&& humidity.equals(other.getHumidity())&& roomNumber == (other.getRoomNumber()) && optimalValues.equals(other.getOptimalValues()) && roomName.equals(other.getRoomName());
     }
 }
 

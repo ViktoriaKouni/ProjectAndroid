@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class CO2
 {
-    @SerializedName("value")
-    @Expose
     private double value;
     //todo time variable, for future
 

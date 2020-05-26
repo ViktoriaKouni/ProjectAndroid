@@ -12,7 +12,9 @@ import com.example.sep4android.APIS.ArchiveResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
 import com.example.sep4android.Models.ArchiveRoom;
 import com.example.sep4android.Models.CO2;
+import com.example.sep4android.Models.Humidity;
 import com.example.sep4android.Models.OptimalValues;
+import com.example.sep4android.Models.Temperature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class ArchiveRepository
         //choose hardcoded data or api
         //getRoomsTest(); //hardcoded
         getRooms(); //api
+        //testChanges();
     }
 
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
@@ -62,6 +65,8 @@ public class ArchiveRepository
                        ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
                                                             response.body().get(i).getArchive().getName(),
                                                             response.body().get(i).getCo2(),
+                                                            response.body().get(i).getTemperature(),
+                                                            response.body().get(i).getHumidity(),
                                                             response.body().get(i).getArchive().getOptimalValues());
                        roomList.add(local);
                    }
@@ -77,9 +82,9 @@ public class ArchiveRepository
     private void getRoomsTest( )
     {
         // testing data
-        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new OptimalValues(7));
-        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new OptimalValues(5));
-        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new OptimalValues(69));
+        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new Temperature(9), new Humidity(13),new OptimalValues(7,4,3));
+        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new Temperature(4), new Humidity(16),new OptimalValues(5,6,7));
+        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new Temperature(3), new Humidity(66),new OptimalValues(69,33,44));
         ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
         archiveRooms.add(room1);
         archiveRooms.add(room2);
@@ -93,16 +98,16 @@ public class ArchiveRepository
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ArchiveRoom room1 = new ArchiveRoom(2,"Angel",new CO2(5),new OptimalValues(7));
-                ArchiveRoom room2 = new ArchiveRoom(7,"Gay",new CO2(9),new OptimalValues(5));
-                ArchiveRoom room3 = new ArchiveRoom(3,"True Story",new CO2(69),new OptimalValues(69));
+                ArchiveRoom room1 = new ArchiveRoom(2,"Angel",new CO2(5),new Temperature(4),new Humidity(55),new OptimalValues(7,3,4));
+                ArchiveRoom room2 = new ArchiveRoom(7,"Gay",new CO2(9),new Temperature(7),new Humidity(34),new OptimalValues(5,3,8));
+                ArchiveRoom room3 = new ArchiveRoom(3,"True Story",new CO2(69),new Temperature(13),new Humidity(17),new OptimalValues(69,33,44));
                 ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
                 archiveRooms.add(room1);
                 archiveRooms.add(room2);
                 archiveRooms.add(room3);
                 rooms.setValue(archiveRooms);
             }
-        }, 5000);
+        }, 14000);
     }
 
 }

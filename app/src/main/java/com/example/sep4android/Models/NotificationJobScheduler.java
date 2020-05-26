@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Intent;
+import android.os.Handler;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -31,6 +32,7 @@ public class NotificationJobScheduler extends JobService {
     private List<ArchiveRoom> archiveRooms;
     ArchiveRepository archive;
     private int offsetValue =1;
+    private boolean first = false;
 
     @Override
     public void onCreate()
@@ -39,13 +41,27 @@ public class NotificationJobScheduler extends JobService {
     }
 
     @Override
-    public boolean onStartJob(JobParameters params) {
-        Log.i("Retrofit", " notification");
-
-        //choose hardcoded data or api
-        //doWorkTest(params); //hardcoded
-        doWork(params); //api
-
+    public boolean onStartJob(final JobParameters params) {
+        if(first==false) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after delay for first run
+                    first = true;
+                    //choose hardcoded data or api
+                    //doWorkTest(params); //hardcoded
+                    doWork(params);     //api
+                }
+            }, 30000);
+            Log.i("Retrofit", " notification");
+        }
+        else
+        {
+            //choose hardcoded data or api
+            //doWorkTest(params); //hardcoded
+            doWork(params);     //api
+        }
         return true;
     }
     public void doWork(final JobParameters params)
@@ -63,6 +79,8 @@ public class NotificationJobScheduler extends JobService {
                         ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
                                 response.body().get(i).getArchive().getName(),
                                 response.body().get(i).getCo2(),
+                                response.body().get(i).getTemperature(),
+                                response.body().get(i).getHumidity(),
                                 response.body().get(i).getArchive().getOptimalValues());
                         roomList.add(local);
                     }
@@ -95,9 +113,9 @@ public class NotificationJobScheduler extends JobService {
     public void doWorkTest(JobParameters params)
     {
         // testing data
-        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new OptimalValues(7));
-        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new OptimalValues(5));
-        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new OptimalValues(69));
+        ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new Temperature(7),new Humidity(31),new OptimalValues(7,9,13));
+        ArchiveRoom room2 = new ArchiveRoom(7,"Viktoria",new CO2(9),new Temperature(8),new Humidity(78),new OptimalValues(5,8,3));
+        ArchiveRoom room3 = new ArchiveRoom(3,"Lyubovi",new CO2(69),new Temperature(14),new Humidity(61),new OptimalValues(69,6,33));
         ArrayList<ArchiveRoom> archiveRooms = new ArrayList<>();
         archiveRooms.add(room1);
         archiveRooms.add(room2);

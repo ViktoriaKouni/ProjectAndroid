@@ -1,7 +1,9 @@
 package com.example.sep4android.APIS;
 
 import com.example.sep4android.Models.CO2;
+import com.example.sep4android.Models.Humidity;
 import com.example.sep4android.Models.OptimalValues;
+import com.example.sep4android.Models.Temperature;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -13,6 +15,8 @@ public class ArchiveResponse {
     @SerializedName("carbonDioxide")
     @Expose
     private CO2 co2;
+    private Temperature temperature;
+    private Humidity humidity;
 
     public class Archive
     {
@@ -43,6 +47,14 @@ public class ArchiveResponse {
 
     public CO2 getCo2() {
         return co2;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    public Humidity getHumidity() {
+        return humidity;
     }
 
 }
