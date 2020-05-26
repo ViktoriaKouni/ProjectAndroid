@@ -29,9 +29,8 @@ public class ArchiveRepository
     private ArchiveRepository()
     {
         //choose hardcoded data or api
-        getRoomsTest(); //hardcoded
-        //getRooms(); //api
-        testChanges();
+        //getRoomsTest(); //hardcoded
+        getRooms(); //api
     }
 
     public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
@@ -103,7 +102,7 @@ public class ArchiveRepository
                 archiveRooms.add(room3);
                 rooms.setValue(archiveRooms);
             }
-        }, 14000);
+        }, 5000);
     }
 
 }
