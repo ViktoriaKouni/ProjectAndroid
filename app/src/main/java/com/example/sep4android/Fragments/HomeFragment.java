@@ -1,12 +1,17 @@
 package com.example.sep4android.Fragments;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -36,6 +41,21 @@ public class HomeFragment extends Fragment {
                             CO2Value.setText(""+ archiveRoom.getCO2().getValue());
                             roomName.setText(""+archiveRoom.getRoomName());
                             //todo refresh
+
+
+                            //On click on the current value, a toast appears with the recommended one
+                            SpannableString spannableStringCO2=new SpannableString(String.valueOf(archiveRoom.getCO2().getValue()));
+                            ClickableSpan clickableSpanCO2=new ClickableSpan() {
+                                @Override
+                                public void onClick(@NonNull View widget) {
+                                    Toast.makeText(conditionActivity, "The recommended value for CO2 is " + archiveRoom.getOptimalValues().getOptimalCO2() + "%", Toast.LENGTH_LONG).show();
+                                }
+                            };
+                            spannableStringCO2.setSpan(clickableSpanCO2,0,4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                            CO2Value.setText(spannableStringCO2);
+                            CO2Value.setMovementMethod(LinkMovementMethod.getInstance());
+
                         }
                         break;
                     }
