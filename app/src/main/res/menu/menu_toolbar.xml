@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/someitem"
-        android:title="someitem"
-        android:icon="@drawable/ic_add"
-        app:showAsAction="always"/>
-    <item android:id="@+id/settings_item"
-        android:title="Settings" />
+    xmlns:appname="http://schemas.android.com/apk/res-auto" >
 
-    <item android:id="@+id/guidance_item"
-        android:title="Guidance" />
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/common_full_open_on_phone"
+        android:title="Settings"
+></item>
+
+<item
+    android:id="@+id/guidance"
+    android:title="Guidance" />
+
 </menu>
