@@ -90,7 +90,7 @@ public class ConditionActivity extends AppCompatActivity {
                             fragment = new HomeFragment(ConditionActivity.this, viewModel);
                             break;
                         case R.id.nav_CO2:
-                            fragment = new CO2Fragment();
+                            fragment = new CO2Fragment(ConditionActivity.this, viewModel);
                         break;
                         case R.id.nav_humidity:
                             fragment = new HumidityFragment();

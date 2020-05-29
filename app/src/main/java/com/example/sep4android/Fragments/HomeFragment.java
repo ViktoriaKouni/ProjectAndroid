@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_co2, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         CO2Value = rootView.findViewById(R.id.co2Value);
         TemperatureValue = rootView.findViewById(R.id.temperatureValue);
         HumidityValue = rootView.findViewById(R.id.humidityValue);
