@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.ConditionActivity">
+    tools:context=".Views.ConditionActivity"
+    android:id="@+id/fragment_co2_container">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:fontFamily="casual"
-            android:text="Archive Room"
+            android:text="@string/archive_room"
             android:textAlignment="center"
             android:textSize="35sp" />
 

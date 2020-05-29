@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="24dp"
-            android:text="Receive notifications" />
+            android:text="@string/receive_notifications" />
 
         <CheckBox
             android:id="@+id/notifications_checkBox"
@@ -40,7 +40,7 @@
             android:layout_height="match_parent"
             android:textSize="24dp"
             android:textAlignment="center"
-            android:text="Time interval between notifications (in minutes):" />
+            android:text="@string/notifications_time_interval" />
 
         <EditText
             android:id="@+id/notifications_time_interval"

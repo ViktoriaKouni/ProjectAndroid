@@ -5,11 +5,11 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/common_full_open_on_phone"
-        android:title="Settings"
+        android:title="@string/settings"
 ></item>
 
 <item
     android:id="@+id/guidance"
-    android:title="Guidance" />
+    android:title="@string/guidance" />
 
 </menu>

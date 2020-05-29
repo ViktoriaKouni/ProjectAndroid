@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="25dp"
             android:fontFamily="casual"
-            android:text="Archive Room"
+            android:text="@string/archive_room"
             android:textAlignment="center"
             android:textSize="35sp" />
 
@@ -40,7 +40,7 @@
             android:layout_marginLeft="25dp"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="CO2"
+            android:text="@string/nav_co2"
             android:textAlignment="center"
             android:textSize="24sp" />
 
@@ -76,7 +76,7 @@
             android:layout_marginLeft="25dp"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="Temperature"
+            android:text="@string/nav_temperature"
             android:textSize="24sp" />
 
         <TextView
@@ -110,7 +110,7 @@
             android:layout_marginLeft="25dp"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="humidity"
+            android:text="@string/nav_humidity"
 
             android:textSize="24sp" />
 
