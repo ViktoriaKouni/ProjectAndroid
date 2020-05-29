@@ -19,26 +19,27 @@ import com.example.sep4android.Models.Temperature;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTO.RoomsDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ArchiveRepository
 {
-    private MutableLiveData<ArrayList<ArchiveRoom>> rooms= new MutableLiveData<>();
+    private MutableLiveData<ArrayList<RoomsDTO>> rooms= new MutableLiveData<>();
+    private MutableLiveData<ArchiveRoom> room= new MutableLiveData<>();
     private static ArchiveRepository instance;
+    private int roomNumberForUpdate;
 
     private ArchiveRepository()
     {
-        //choose hardcoded data or api
-        //getRoomsTest(); //hardcoded
         getRooms(); //api
-        //testChanges();
     }
 
-    public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms() {
+    public LiveData<ArrayList<RoomsDTO>> getArchiveRooms() {
         return rooms;
     }
+    public LiveData<ArchiveRoom> getArchiveRoomLatestValue() { return room; }
 
     public static ArchiveRepository getInstance()
     {
@@ -51,35 +52,92 @@ public class ArchiveRepository
   public void getRooms()
   {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
-        Call<List<ArchiveResponse>> call = archiveApi.getAllArchiveRooms();
-        call.enqueue(new Callback<List<ArchiveResponse>>()
+        Call<List<RoomsDTO>> call = archiveApi.getAllArchiveRooms();
+        call.enqueue(new Callback<List<RoomsDTO>>()
         {
             @Override
-            public void onResponse(Call<List<ArchiveResponse>> call, Response<List<ArchiveResponse>> response)
+            public void onResponse(Call<List<RoomsDTO>> call, Response<List<RoomsDTO>> response)
             {
                if (response.code() == 200 )
                {
-                   ArrayList<ArchiveRoom> roomList = new ArrayList<>();
+                   ArrayList<RoomsDTO> roomList = new ArrayList<>();
                    for(int i = 0;i<response.body().size();i++)
                    {
-                       ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
-                                                            response.body().get(i).getArchive().getName(),
-                                                            response.body().get(i).getCo2(),
-                                                            response.body().get(i).getTemperature(),
-                                                            response.body().get(i).getHumidity(),
-                                                            response.body().get(i).getArchive().getOptimalValues());
+                       RoomsDTO local = new RoomsDTO(response.body().get(i).getRoomName(),response.body().get(i).getRoomNumber());
                        roomList.add(local);
                    }
                    rooms.setValue(roomList);
                }
         }@Override
-        public void onFailure(Call<List<ArchiveResponse>> call, Throwable t) {
+        public void onFailure(Call<List<RoomsDTO>> call, Throwable t) {
             Log.i("Retrofit", "Something went wrong :("+ t.toString());
         }
         });
   }
+    public void RoomUpdate()
+    {
+        getArchiveRoom(roomNumberForUpdate);
+    }
+    public void getArchiveRoom(int roomNumber)
+    {
+        roomNumberForUpdate =roomNumber;
+        Log.i("Retrofit", "Something went wrong :(");
+        ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
+        Call<ArchiveResponse> call = archiveApi.getArchiveRoomLatestValues(roomNumber);
+        call.enqueue(new Callback<ArchiveResponse>()
+        {
+            @Override
+            public void onResponse(Call<ArchiveResponse> call, Response<ArchiveResponse> response)
+            {
+                if (response.code() == 200 )
+                {
+                    ArchiveRoom local = new ArchiveRoom(response.body().getArchive().getRoomNumber(),
+                            response.body().getArchive().getName(),
+                            new CO2(response.body().getCo2()),
+                            new Temperature(response.body().getTemperature()),
+                            new Humidity(response.body().getHumidity()),
+                            response.body().getArchive().getOptimalValues());
+                    room.setValue(local);
+                }
+            }@Override
+        public void onFailure(Call<ArchiveResponse> call, Throwable t) {
+            Log.i("Retrofit", "Something went wrong :("+ t.toString());
+        }
+        });
+    }
 
-    private void getRoomsTest( )
+/*    public void getRooms()
+    {
+        ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
+        Call<List<ArchiveResponse>> call = archiveApi.getAllArchiveRoomsLatestValues();
+        call.enqueue(new Callback<List<ArchiveResponse>>()
+        {
+            @Override
+            public void onResponse(Call<List<ArchiveResponse>> call, Response<List<ArchiveResponse>> response)
+            {
+                if (response.code() == 200 )
+                {
+                    ArrayList<ArchiveRoom> roomList = new ArrayList<>();
+                    for(int i = 0;i<response.body().size();i++)
+                    {
+                        ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
+                                response.body().get(i).getArchive().getName(),
+                                response.body().get(i).getCo2(),
+                                response.body().get(i).getTemperature(),
+                                response.body().get(i).getHumidity(),
+                                response.body().get(i).getArchive().getOptimalValues());
+                        roomList.add(local);
+                    }
+                    rooms.setValue(roomList);
+                }
+            }@Override
+        public void onFailure(Call<List<ArchiveResponse>> call, Throwable t) {
+            Log.i("Retrofit", "Something went wrong :("+ t.toString());
+        }
+        });
+    }*/
+
+/*    private void getRoomsTest( )
     {
         // testing data
         ArchiveRoom room1 = new ArchiveRoom(2,"Gicu",new CO2(5),new Temperature(9), new Humidity(13),new OptimalValues(7,4,3));
@@ -108,7 +166,7 @@ public class ArchiveRepository
                 rooms.setValue(archiveRooms);
             }
         }, 14000);
-    }
+    }*/
 
 }
 

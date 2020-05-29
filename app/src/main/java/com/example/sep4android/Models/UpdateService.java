@@ -45,10 +45,10 @@ public class UpdateService extends IntentService {
                 handler.post( new Runnable() {
                     public void run () {
                         archive.getRooms();
+                        archive.RoomUpdate();
                     }
                 }) ;
             }
         } ;
     }
-
 }

@@ -14,9 +14,9 @@ public class ArchiveResponse {
     private Archive archive;
     @SerializedName("carbonDioxide")
     @Expose
-    private CO2 co2;
-    private Temperature temperature;
-    private Humidity humidity;
+    private double co2;
+    private double temperature;
+    private double humidity;
 
     public class Archive
     {
@@ -45,15 +45,15 @@ public class ArchiveResponse {
         return archive;
     }
 
-    public CO2 getCo2() {
+    public double getCo2() {
         return co2;
     }
 
-    public Temperature getTemperature() {
+    public double getTemperature() {
         return temperature;
     }
 
-    public Humidity getHumidity() {
+    public double getHumidity() {
         return humidity;
     }
 

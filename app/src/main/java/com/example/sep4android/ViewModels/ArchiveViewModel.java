@@ -1,6 +1,7 @@
 package com.example.sep4android.ViewModels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +11,8 @@ import com.example.sep4android.Models.ArchiveRoom;
 import com.example.sep4android.Repositories.ArchiveRepository;
 
 import java.util.ArrayList;
+
+import DTO.RoomsDTO;
 
 public class ArchiveViewModel extends AndroidViewModel {
 
@@ -21,8 +24,12 @@ public class ArchiveViewModel extends AndroidViewModel {
         repository = ArchiveRepository.getInstance();
     }
 
-    public LiveData<ArrayList<ArchiveRoom>> getArchiveRooms(){
+    public LiveData<ArrayList<RoomsDTO>> getArchiveRooms(){
         return repository.getArchiveRooms();
+    }
+
+    public void getArchiveRoom(int roomNumber){
+        repository.getArchiveRoom(roomNumber);
     }
 
 }

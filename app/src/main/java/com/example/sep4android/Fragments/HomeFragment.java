@@ -26,20 +26,15 @@ public class HomeFragment extends Fragment {
     private TextView CO2Value;
     private TextView TemperatureValue;
     private TextView HumidityValue;
-    private TextView roomName;
     private ArchiveRoom archiveRoom;
 
     public HomeFragment(final ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
-        conditionsViewModel.getArchiveRooms().observe(this, new Observer<List<ArchiveRoom>>() {
+        conditionsViewModel.getArchiveRoomLatestValue().observe(this, new Observer<ArchiveRoom>() {
             @Override
-            public void onChanged(List<ArchiveRoom> rooms) {
-                for(int i = 0;i<rooms.size();i++)
-                {
-                    if(conditionActivity.getRoomNumber() == rooms.get(i).getRoomNumber())
-                    {
-                        if(!rooms.get(i).equals(archiveRoom))
+            public void onChanged(ArchiveRoom room) {
+                        if(!room.equals(archiveRoom))
                         {
-                            archiveRoom = rooms.get(i);
+                            archiveRoom = room;
                             String co2 = archiveRoom.getCO2().getValue() + "%";
                             String temperature = archiveRoom.getTemperature().getValue() + "°C";
                             String humidity = archiveRoom.getHumidity().getValue() + "%";
@@ -84,9 +79,6 @@ public class HomeFragment extends Fragment {
                             HumidityValue.setMovementMethod(LinkMovementMethod.getInstance());
 
                         }
-                        break;
-                    }
-                }
             }
         });
     }
@@ -97,7 +89,6 @@ public class HomeFragment extends Fragment {
         CO2Value = rootView.findViewById(R.id.co2Value);
         TemperatureValue = rootView.findViewById(R.id.temperatureValue);
         HumidityValue = rootView.findViewById(R.id.humidityValue);
-        roomName =rootView.findViewById(R.id.archiveRoom);
         return rootView;
     }
 }

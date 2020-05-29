@@ -22,6 +22,8 @@ import com.example.sep4android.ViewModels.ArchiveViewModel;
 
 import java.util.List;
 
+import DTO.RoomsDTO;
+
 public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnListItemClickedListener {
 
     private RoomAdapter adapter;
@@ -45,10 +47,10 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     public void setViewModel() {
         viewModel = new ViewModelProvider(this).get(ArchiveViewModel.class);
 
-        viewModel.getArchiveRooms().observe(this, new Observer<List<ArchiveRoom>>() {
+        viewModel.getArchiveRooms().observe(this, new Observer<List<RoomsDTO>>() {
 
             @Override
-            public void onChanged(List<ArchiveRoom> rooms) {
+            public void onChanged(List<RoomsDTO> rooms) {
                 adapter.setRooms(rooms);
             }
         });
@@ -56,7 +58,9 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
 
     @Override
     public void onListItemClicked(int roomNumber) {
+        viewModel.getArchiveRoom(roomNumber);
         Intent intent = new Intent(this, ConditionActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("number", roomNumber);
         startActivity(intent);
     }
@@ -71,7 +75,7 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         job.schedule(info);
         Log.i("Retrofit", "Start notification scheduler");
     }
-    // not sure we need it
+    //todo not sure we need it
     public void StopNotifications()
     {
         JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
@@ -83,7 +87,7 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     {
         startService( new Intent( this, UpdateService. class )) ;
     }
-//todo to thing when and how we want this to work
+//todo to think when and how we want this to work
     public void StopUpdates()
     {
         stopService( new Intent( this, UpdateService. class )) ;

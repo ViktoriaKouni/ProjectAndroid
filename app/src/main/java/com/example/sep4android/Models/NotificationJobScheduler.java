@@ -63,7 +63,7 @@ public class NotificationJobScheduler extends JobService {
     public void doWork(final JobParameters params)
     {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
-        Call<List<ArchiveResponse>> call = archiveApi.getAllArchiveRooms();
+        Call<List<ArchiveResponse>> call = archiveApi.getAllArchiveRoomsLatestValues();
         call.enqueue(new Callback<List<ArchiveResponse>>()
         {
             @Override
@@ -74,9 +74,9 @@ public class NotificationJobScheduler extends JobService {
                     {
                         ArchiveRoom local = new ArchiveRoom(response.body().get(i).getArchive().getRoomNumber(),
                                 response.body().get(i).getArchive().getName(),
-                                response.body().get(i).getCo2(),
-                                response.body().get(i).getTemperature(),
-                                response.body().get(i).getHumidity(),
+                                new CO2(response.body().get(i).getCo2()),
+                                new Temperature(response.body().get(i).getTemperature()),
+                                new Humidity(response.body().get(i).getHumidity()),
                                 response.body().get(i).getArchive().getOptimalValues());
                         roomList.add(local);
                     }
