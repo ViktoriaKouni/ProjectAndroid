@@ -1,6 +1,5 @@
 package com.example.sep4android.Adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,18 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.ArchiveRoomIndentification;
 import com.example.sep4android.R;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import DTO.RoomsDTO;
 
 public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     private OnListItemClickedListener onListItemClickedListener;
-    private List<RoomsDTO> rooms;
+    private List<ArchiveRoomIndentification> rooms;
 
 
     public RoomAdapter(OnListItemClickedListener listener) {
@@ -39,12 +35,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
         if(rooms != null) {
-            RoomsDTO roomPosition = rooms.get(position);
+            ArchiveRoomIndentification roomPosition = rooms.get(position);
             holder.roomName.setText(String.valueOf(roomPosition.getRoomName()));
         }
     }
 
-    public void setRooms(List<RoomsDTO> rooms) {
+    public void setRooms(List<ArchiveRoomIndentification> rooms) {
         if (this.rooms ==null)
         {
             this.rooms = rooms;
@@ -87,7 +83,6 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            Log.i("Retrofit", "ccccccccccccccccccc");
             onListItemClickedListener.onListItemClicked(rooms.get(getAdapterPosition()).getRoomNumber());
         }
 

@@ -1,7 +1,5 @@
 package com.example.sep4android.Repositories;
 
-import android.app.job.JobParameters;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -9,24 +7,24 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep4android.APIS.ArchiveAPI;
 import com.example.sep4android.APIS.ArchiveResponse;
+import com.example.sep4android.APIS.RoomResponse;
 import com.example.sep4android.APIS.ServiceGenerator;
 import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.ArchiveRoomIndentification;
 import com.example.sep4android.Models.CO2;
 import com.example.sep4android.Models.Humidity;
-import com.example.sep4android.Models.OptimalValues;
 import com.example.sep4android.Models.Temperature;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import DTO.RoomsDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ArchiveRepository
 {
-    private MutableLiveData<ArrayList<RoomsDTO>> rooms= new MutableLiveData<>();
+    private MutableLiveData<ArrayList<ArchiveRoomIndentification>> rooms= new MutableLiveData<>();
     private MutableLiveData<ArchiveRoom> room= new MutableLiveData<>();
     private static ArchiveRepository instance;
     private int roomNumberForUpdate;
@@ -36,7 +34,7 @@ public class ArchiveRepository
         getRooms(); //api
     }
 
-    public LiveData<ArrayList<RoomsDTO>> getArchiveRooms() {
+    public LiveData<ArrayList<ArchiveRoomIndentification>> getArchiveRooms() {
         return rooms;
     }
     public LiveData<ArchiveRoom> getArchiveRoomLatestValue() { return room; }
@@ -52,24 +50,25 @@ public class ArchiveRepository
   public void getRooms()
   {
         ArchiveAPI archiveApi = ServiceGenerator.getArchiveApi();
-        Call<List<RoomsDTO>> call = archiveApi.getAllArchiveRooms();
-        call.enqueue(new Callback<List<RoomsDTO>>()
+        Call<List<RoomResponse>> call = archiveApi.getAllArchiveRooms();
+        call.enqueue(new Callback<List<RoomResponse>>()
         {
             @Override
-            public void onResponse(Call<List<RoomsDTO>> call, Response<List<RoomsDTO>> response)
+            public void onResponse(Call<List<RoomResponse>> call, Response<List<RoomResponse>> response)
             {
                if (response.code() == 200 )
                {
-                   ArrayList<RoomsDTO> roomList = new ArrayList<>();
+                   ArrayList<ArchiveRoomIndentification> roomList = new ArrayList<>();
                    for(int i = 0;i<response.body().size();i++)
                    {
-                       RoomsDTO local = new RoomsDTO(response.body().get(i).getRoomName(),response.body().get(i).getRoomNumber());
+                       ArchiveRoomIndentification local;
+                       local = new ArchiveRoomIndentification(response.body().get(i).getRoomName(),response.body().get(i).getRoomNumber());
                        roomList.add(local);
                    }
                    rooms.setValue(roomList);
                }
         }@Override
-        public void onFailure(Call<List<RoomsDTO>> call, Throwable t) {
+        public void onFailure(Call<List<RoomResponse>> call, Throwable t) {
             Log.i("Retrofit", "Something went wrong :("+ t.toString());
         }
         });

@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep4android.Adapters.RoomAdapter;
-import com.example.sep4android.Models.ArchiveRoom;
+import com.example.sep4android.Models.ArchiveRoomIndentification;
 import com.example.sep4android.Models.NotificationJobScheduler;
 import com.example.sep4android.Models.UpdateService;
 import com.example.sep4android.R;
 import com.example.sep4android.ViewModels.ArchiveViewModel;
 
 import java.util.List;
-
-import DTO.RoomsDTO;
 
 public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnListItemClickedListener {
 
@@ -47,10 +45,10 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
     public void setViewModel() {
         viewModel = new ViewModelProvider(this).get(ArchiveViewModel.class);
 
-        viewModel.getArchiveRooms().observe(this, new Observer<List<RoomsDTO>>() {
+        viewModel.getArchiveRooms().observe(this, new Observer<List<ArchiveRoomIndentification>>() {
 
             @Override
-            public void onChanged(List<RoomsDTO> rooms) {
+            public void onChanged(List<ArchiveRoomIndentification> rooms) {
                 adapter.setRooms(rooms);
             }
         });

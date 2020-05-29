@@ -1,10 +1,9 @@
-package DTO;
-
+package com.example.sep4android.APIS;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RoomsDTO {
+public class RoomResponse {
     @SerializedName("name")
     @Expose
     private String roomName;
@@ -12,7 +11,7 @@ public class RoomsDTO {
     @Expose
     private int roomNumber;
 
-    public RoomsDTO(String roomName, int roomNumber)
+    public RoomResponse(String roomName, int roomNumber)
     {
         this.roomName = roomName;
         this.roomNumber = roomNumber;
@@ -26,3 +25,4 @@ public class RoomsDTO {
         return roomNumber;
     }
 }
+

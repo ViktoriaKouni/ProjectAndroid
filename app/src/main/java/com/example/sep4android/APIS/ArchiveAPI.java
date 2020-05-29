@@ -1,10 +1,7 @@
 package com.example.sep4android.APIS;
 
-import com.example.sep4android.Models.ArchiveRoom;
-
 import java.util.List;
 
-import DTO.RoomsDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -12,7 +9,7 @@ import retrofit2.http.Path;
 
 public interface ArchiveAPI {
     @GET("/api/archive")
-    Call<List<RoomsDTO>> getAllArchiveRooms();
+    Call<List<RoomResponse>> getAllArchiveRooms();
 
     @GET("/api/archive/latestValues")
     Call<List<ArchiveResponse>> getAllArchiveRoomsLatestValues();
