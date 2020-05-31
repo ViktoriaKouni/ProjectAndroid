@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="casual"
-        android:text="Book Archive"
+        android:text="@string/book_archive"
         android:textColor="@color/black"
         android:textColorHighlight="#FAF3F3"
         android:textSize="30sp"

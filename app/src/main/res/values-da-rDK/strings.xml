@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SEP4Android</string>
+    <string name="nav_home">Hjem</string>
+    <string name="nav_co2">CO2</string>
+    <string name="nav_humidity">Fugtighed</string>
+    <string name="nav_temperature">Temperatur</string>
+    <string name="guidance">Vejledning</string>
+    <string name="settings">Indstillinger</string>
+    <string name="archive_room">Arkivrum</string>
+    <string name="book_archive">Bog arkiv</string>
+    <string name="receive_notifications">Modtag underretninger</string>
+    <string name="notifications_time_interval">Tidsinterval mellem meddelelser (på få minutter)</string>
+</resources>

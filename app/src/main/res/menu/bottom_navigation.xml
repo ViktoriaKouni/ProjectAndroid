@@ -4,21 +4,21 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:title="@string/nav_home"
         />
 
     <item
         android:id="@+id/nav_CO2"
         android:icon="@drawable/ic_co2"
-        android:title="CO2" />
+        android:title="@string/nav_co2" />
 
     <item
         android:id="@+id/nav_humidity"
         android:icon="@drawable/ic_humidity"
-        android:title="Humidity" />
+        android:title="@string/nav_humidity" />
 
     <item
         android:id="@+id/nav_temperature"
         android:icon="@drawable/ic_temperature"
-        android:title="Temperature" />
+        android:title="@string/nav_temperature" />
 </menu>
