@@ -21,7 +21,23 @@
             android:fontFamily="casual"
             android:text="Archive Room"
             android:textAlignment="center"
-            android:textSize="35sp" />
+            android:textSize="35sp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/averageText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:text="Average "
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/averageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:gravity="center_vertical"
+            android:layout_weight="1.8"/>
 
 
     </LinearLayout>
@@ -72,6 +88,10 @@
             android:gravity="left"
             android:layout_weight="1"/>
     </LinearLayout>
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/graph"/>
 
 
 </LinearLayout>

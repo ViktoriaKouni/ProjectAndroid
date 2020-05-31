@@ -37,8 +37,6 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         adapter = new RoomAdapter( this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        scheduleNotifications();
-        scheduleUpdates();
     }
 
 
@@ -59,8 +57,9 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         viewModel.getArchiveRoom(roomNumber);
         Intent intent = new Intent(this, ConditionActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("number", roomNumber);
         startActivity(intent);
+        scheduleNotifications();
+        scheduleUpdates();
     }
 
     private void scheduleNotifications() {

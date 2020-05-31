@@ -35,9 +35,9 @@ public class HomeFragment extends Fragment {
                         if(!room.equals(archiveRoom))
                         {
                             archiveRoom = room;
-                            String co2 = archiveRoom.getCO2().getValue() + "%";
-                            String temperature = archiveRoom.getTemperature().getValue() + "°C";
-                            String humidity = archiveRoom.getHumidity().getValue() + "%";
+                            String co2 = String.format("%.2f",archiveRoom.getCO2().getValue()) + "%";
+                            String temperature = String.format("%.2f",archiveRoom.getTemperature().getValue()) + "°C";
+                            String humidity = String.format("%.2f",archiveRoom.getHumidity().getValue()) + "%";
 
                             //On click on the current value, a toast appears with the recommended one
                             SpannableString spannableStringCO2=new SpannableString(co2);

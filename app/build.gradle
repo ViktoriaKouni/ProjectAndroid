@@ -91,4 +91,6 @@ dependencies {
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+    //Graph
+    implementation 'com.jjoe64:graphview:4.2.2'
 }
