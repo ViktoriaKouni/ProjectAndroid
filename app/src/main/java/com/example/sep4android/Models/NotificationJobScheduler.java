@@ -111,22 +111,22 @@ public class NotificationJobScheduler extends JobService {
                 String notificationText;
                 notificationText = "Following measurements are undesired in room " + archiveRooms.get(i).getRoomName() + ":";
                 if (differenceCO2 >= offsetValue) {
-                    notificationText += "\nCO2 level is higher by " + differenceCO2 + " currently being " + archiveRooms.get(i).getCO2().getValue();
+                    notificationText += "\nCO2 level is higher by " + String.format("%.2f", differenceCO2) + "%, currently being " + String.format("%.2f",archiveRooms.get(i).getCO2().getValue());
                 }
                 if (differenceCO2 < 0 && differenceCO2 * (-1) >= offsetValue) {
-                    notificationText += "\nCO2 level is lower by " + differenceCO2 * (-1) + " currently being " + archiveRooms.get(i).getCO2().getValue();
+                    notificationText += "\nCO2 level is lower by " + String.format("%.2f", differenceCO2*(-1)) + "%, currently being " + String.format("%.2f",archiveRooms.get(i).getCO2().getValue());
                 }
                 if (differenceTemperature >= offsetValue) {
-                    notificationText += "\nTemperature level is higher by " + differenceTemperature + " currently being " + archiveRooms.get(i).getTemperature().getValue();
+                    notificationText += "\nTemperature level is higher by " + String.format("%.2f", differenceTemperature) + "°C, currently being " + String.format("%.2f",archiveRooms.get(i).getTemperature().getValue());
                 }
                 if (differenceTemperature < 0 && differenceTemperature * (-1) >= offsetValue) {
-                    notificationText += "\nTemperature level is lower by " + differenceTemperature * (-1) + " currently being " + archiveRooms.get(i).getTemperature().getValue();
+                    notificationText += "\nTemperature level is lower by " + String.format("%.2f", differenceTemperature*(-1)) + "°C, currently being " + String.format("%.2f",archiveRooms.get(i).getTemperature().getValue());
                 }
                 if (differenceHumidity >= offsetValue) {
-                    notificationText += "\nHumidity level is higher by " + differenceHumidity + " currently being " + archiveRooms.get(i).getHumidity().getValue();
+                    notificationText += "\nHumidity level is higher by " + String.format("%.2f", differenceHumidity) + "%, currently being " + String.format("%.2f",archiveRooms.get(i).getHumidity().getValue());
                 }
                 if (differenceHumidity < 0 && differenceHumidity * (-1) >= offsetValue) {
-                    notificationText += "\nHumidity level is lower by " + differenceHumidity * (-1) + " currently being " + archiveRooms.get(i).getHumidity().getValue();
+                    notificationText += "\nHumidity level is lower by " + String.format("%.2f", differenceHumidity*(-1)) + "%, currently being " + String.format("%.2f",archiveRooms.get(i).getHumidity().getValue());
                 }
                 createNotification(notificationText);
             }

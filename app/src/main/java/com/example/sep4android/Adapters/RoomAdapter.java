@@ -53,6 +53,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
                 {
                     this.rooms = rooms;
                     notifyDataSetChanged();
+                    break;
                 }
         }
     }

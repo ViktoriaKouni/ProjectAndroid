@@ -2,6 +2,7 @@ package com.example.sep4android.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,9 +21,11 @@ import com.example.sep4android.R;
 import com.example.sep4android.ViewModels.ConditionsViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ConditionActivity extends AppCompatActivity {
     private ConditionsViewModel viewModel;
-    private int roomNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,6 @@ public class ConditionActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         viewModel = new ViewModelProvider(this).get(ConditionsViewModel.class);
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle != null && bundle.containsKey("number")) {
-            roomNumber = bundle.getInt("number");
-        }
-
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
@@ -74,17 +71,11 @@ public class ConditionActivity extends AppCompatActivity {
         return true;
     }
 
-    public int getRoomNumber()
-    {
-        return roomNumber;
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     Fragment fragment = null;
-
                     switch (menuItem.getItemId()) {
                         case R.id.nav_home:
                             fragment = new HomeFragment(ConditionActivity.this, viewModel);
@@ -93,10 +84,10 @@ public class ConditionActivity extends AppCompatActivity {
                             fragment = new CO2Fragment(ConditionActivity.this, viewModel);
                         break;
                         case R.id.nav_humidity:
-                            fragment = new HumidityFragment();
+                            fragment = new HumidityFragment(ConditionActivity.this, viewModel);
                             break;
                         case R.id.nav_temperature:
-                            fragment = new TemperatureFragment();
+                            fragment = new TemperatureFragment(ConditionActivity.this, viewModel);
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
