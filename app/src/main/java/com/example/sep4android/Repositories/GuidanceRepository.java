@@ -17,12 +17,17 @@ public class GuidanceRepository {
 
     private GuidanceDao guidanceDao;
     private static GuidanceRepository instance;
-    private LiveData<List<Guidance>> allGuidance;
+    private LiveData<List<Guidance>> allGuidanceCO2;
+    private LiveData<List<Guidance>> allGuidanceHumidity;
+    private LiveData<List<Guidance>> allGuidanceTemperature;
 
     private GuidanceRepository(Application application){
         GuidanceDatabase database = GuidanceDatabase.getInstance(application);
         guidanceDao = database.noteDao();
-        allGuidance = guidanceDao.getAllCO2Guidance();
+        allGuidanceCO2 = guidanceDao.getAllCO2Guidance();
+        allGuidanceHumidity = guidanceDao.getAllHumidityGuidance();
+        allGuidanceTemperature=guidanceDao.getAllTemperatureGuidance();
+
     }
 
     public static synchronized GuidanceRepository getInstance(Application application){
@@ -33,7 +38,15 @@ public class GuidanceRepository {
     }
 
     public LiveData<List<Guidance>> getAllGuidanceCO2(){
-        return allGuidance;
+        return allGuidanceCO2;
+    }
+
+    public LiveData<List<Guidance>> getAllGuidanceHumidity(){
+        return allGuidanceHumidity;
+    }
+
+    public LiveData<List<Guidance>> getAllGuidanceTemperature(){
+        return allGuidanceTemperature;
     }
 
     public void insert(Guidance guidance) {
@@ -55,6 +68,26 @@ public class GuidanceRepository {
         }
     }
 
+    public void delete(Guidance guidance)
+    {
+        new DeleteGuidanceAsyncTask(guidanceDao).execute(guidance);
+    }
 
+    private static class DeleteGuidanceAsyncTask extends AsyncTask<Guidance, Void, Void>
+    {
+        private GuidanceDao guidanceDao;
+
+        private DeleteGuidanceAsyncTask(GuidanceDao guidanceDao)
+        {
+            this.guidanceDao = guidanceDao;
+        }
+
+        @Override
+        protected Void doInBackground(Guidance... guidances)
+        {
+            guidanceDao.delete(guidances[0]);
+            return null;
+        }
+    }
 
 }

@@ -8,23 +8,15 @@
     tools:context=".Views.MainActivity">
 
 
-<EditText
-    android:id="@+id/guidance_description"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:text="Enter description"
-    android:textSize="30sp"></EditText>
-
-    <Spinner
-        android:id="@+id/spinner"
+    <EditText
+        android:id="@+id/guidance_description_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Select condition"
-        android:textSize="30sp"
-        android:layout_below="@id/guidance_description"
-    />
+        android:hint="Enter Description"
+        android:textSize="18sp"></EditText>
+
+
 
 
 </RelativeLayout>

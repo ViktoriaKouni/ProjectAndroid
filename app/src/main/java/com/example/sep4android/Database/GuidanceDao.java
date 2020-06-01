@@ -35,4 +35,6 @@ public interface GuidanceDao {
 
     @Query("SELECT * FROM guidance_table  WHERE type == 'Humidity'; ")
     LiveData<List<Guidance>> getAllHumidityGuidance();
+
 }
+

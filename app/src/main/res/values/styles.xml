@@ -10,6 +10,10 @@
         <item name="android:colorAccent">@color/dark_orange</item>
     </style>
 
-
+<string-array name="conditions">
+    <item>CO2</item>
+    <item>Temperature</item>
+    <item>Humidity</item>
+</string-array>
 
 </resources>

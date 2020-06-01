@@ -11,7 +11,7 @@ public class Guidance {
     private int id;
     private String type;
     private String description;
-    static String CO2="CO2";
+
 
     public Guidance(String type, String description) {
         this.type = type;

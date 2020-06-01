@@ -1,14 +1,13 @@
 package com.example.sep4android.Views;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.sep4android.Fragments.GuidanceCO2Fragment;
 import com.example.sep4android.Fragments.GuidanceHumidityFragment;
@@ -48,10 +47,10 @@ public class GuidanceActivity extends AppCompatActivity {
                             fragment = new GuidanceCO2Fragment(GuidanceActivity.this, viewModel);
                             break;
                         case R.id.guidance_nav_humidity:
-                            fragment = new GuidanceHumidityFragment();
+                            fragment = new GuidanceHumidityFragment(GuidanceActivity.this, viewModel);
                             break;
                         case R.id.guidance_nav_temperature:
-                            fragment = new GuidanceTemperatureFragment();
+                            fragment = new GuidanceTemperatureFragment(GuidanceActivity.this, viewModel);
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.guidance_fragment_container,
