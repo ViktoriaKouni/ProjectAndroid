@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="casual"
-            android:text="Average "
+            android:text="@string/average"
             android:gravity="center_vertical"
             android:layout_weight="1"/>
         <TextView
@@ -51,20 +51,20 @@
             android:id="@+id/startDateB"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Start Date"
+            android:text="@string/start_date"
             android:layout_weight="0.8"/>
         <Button
             android:id="@+id/endDateB"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="End Date"
+            android:text="@string/end_date"
             android:layout_weight="0.8"/>
 
         <Button
             android:id="@+id/resetB"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Reset"
+            android:text="@string/reset"
             android:layout_weight="1.1"/>
     </LinearLayout>
     <LinearLayout
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="casual"
-            android:text="Last week readings"
+            android:text="@string/last_week_readings"
             android:gravity="left"
             android:layout_weight="1.5"/>
         <TextView

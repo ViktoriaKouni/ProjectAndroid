@@ -11,4 +11,12 @@
     <string name="book_archive">Bog arkiv</string>
     <string name="receive_notifications">Modtag underretninger</string>
     <string name="notifications_time_interval">Tidsinterval mellem meddelelser (på få minutter)</string>
+    <string name="enter_description">Indtast beskrivelse</string>
+    <string name="change_language">Skift sprog</string>
+    <string name="save">Gemme</string>
+    <string name="average">Gennemsnit</string>
+    <string name="start_date">Start dato</string>
+    <string name="end_date">Slut dato</string>
+    <string name="reset">Nulstil</string>
+    <string name="last_week_readings">Sidste uges aflæsninger</string>
 </resources>

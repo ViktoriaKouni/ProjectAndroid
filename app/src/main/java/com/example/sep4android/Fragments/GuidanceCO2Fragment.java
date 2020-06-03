@@ -50,36 +50,11 @@ public class GuidanceCO2Fragment extends Fragment implements GuidanceAdapter.OnL
         guidanceAdapter = new GuidanceAdapter(this);
         guidanceRecyclerView.setAdapter(guidanceAdapter);
 
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getLayoutInflater().inflate(R.layout.add_guidance, null);
-        description = view.findViewById(R.id.guidance_description_dialog);
-        builder.setView(view);
-
-        builder.setPositiveButton("Add New Guidance", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String txt = description.getText().toString();
-                System.out.println("added");
-                guidanceViewModel.insert(new Guidance("CO2", txt));
-
-            }
-        });
-
-        builder.setNegativeButton("Never mind", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-
-        final AlertDialog ad = builder.create();
         addNewItem = rootView.findViewById(R.id.guidance_fab);
         addNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ad.show();
-
+                saveGuidance();
             }
         });
 
@@ -108,8 +83,60 @@ public class GuidanceCO2Fragment extends Fragment implements GuidanceAdapter.OnL
         return rootView;
     }
 
-    @Override
-    public void onListItemClick(Guidance guidances) {
+    private void saveGuidance() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getLayoutInflater().inflate(R.layout.add_guidance, null);
+        description = view.findViewById(R.id.guidance_description_dialog);
+        builder.setView(view);
 
+        builder.setPositiveButton("Add New Guidance", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String txt = description.getText().toString();
+                System.out.println("added");
+                guidanceViewModel.insert(new Guidance("CO2", txt));
+
+            }
+        });
+
+        builder.setNegativeButton("Never mind", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        final AlertDialog ad = builder.create();
+        ad.show();
+    }
+
+    @Override
+    public void onListItemClick(final Guidance guidances) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = getLayoutInflater().inflate(R.layout.add_guidance, null);
+        description = view.findViewById(R.id.guidance_description_dialog);
+        builder.setView(view);
+
+        builder.setPositiveButton("Edit Guidance", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int i = guidances.getId();
+                String txt = description.getText().toString();
+                System.out.println("edited");
+                Guidance newGuidance = new Guidance("CO2", txt);
+                newGuidance.setId(i);
+                guidanceViewModel.update(newGuidance);
+            }
+        });
+
+        builder.setNegativeButton("Never mind", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        final AlertDialog ad = builder.create();
+        ad.show();
     }
 }

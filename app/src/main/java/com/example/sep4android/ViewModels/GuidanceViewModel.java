@@ -33,6 +33,10 @@ public class GuidanceViewModel extends AndroidViewModel {
         repository.insert(guidance);
     }
 
+    public void update(final Guidance guidance) {
+        repository.update(guidance);
+    }
+
     public void delete(final Guidance guidance) {
         repository.delete(guidance);
     }

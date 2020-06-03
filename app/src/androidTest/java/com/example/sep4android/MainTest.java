@@ -5,8 +5,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -63,8 +65,15 @@ public class MainTest {
     public void test_recycleview_click() {
         RecyclerView recyclerView = mainActivityActivityTestRule.getActivity().findViewById(R.id.rooms);
         int itemcount = recyclerView.getAdapter().getItemCount();
-        String text = recyclerView.getLayoutManager().getChildAt(itemcount).getTransitionName();
+        String text = recyclerView.findViewHolderForAdapterPosition(itemcount).itemView.findViewById(R.id.roomName).getTooltipText().toString();
         onView(withId(R.id.rooms)).check(matches(atPosition(itemcount, withText(text))));
+    }
+
+    @Test
+    public void somee_test() {
+        RecyclerView recyclerView = mainActivityActivityTestRule.getActivity().findViewById(R.id.rooms);
+        int itemcount = recyclerView.getAdapter().getItemCount();
+        onView(ViewMatchers.withId(R.id.rooms)).perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
     }
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {

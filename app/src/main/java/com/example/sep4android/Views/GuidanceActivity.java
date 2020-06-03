@@ -5,7 +5,10 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +35,11 @@ public class GuidanceActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.guidance_bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
+        Toolbar toolbar = findViewById(R.id.tool);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.guidance_fragment_container,
                 new GuidanceCO2Fragment(GuidanceActivity.this, viewModel)).commit();
     }
@@ -53,9 +61,16 @@ public class GuidanceActivity extends AppCompatActivity {
                             fragment = new GuidanceTemperatureFragment(GuidanceActivity.this, viewModel);
                             break;
                     }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.guidance_fragment_container,
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.guidance_fragment_container,
                             fragment).commit();
                     return true;
                 }
             };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

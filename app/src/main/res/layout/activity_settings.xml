@@ -51,4 +51,18 @@
             android:textAlignment="center" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/settingsLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/change_language"
+        android:layout_margin="2dp"/>
+
+    <Button
+        android:id="@+id/settingsSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_margin="2dp" />
 </LinearLayout>
