@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 
 android {
     compileSdkVersion 29
@@ -95,4 +98,5 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     //Graph
     implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
