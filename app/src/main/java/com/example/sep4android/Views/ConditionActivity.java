@@ -2,8 +2,6 @@ package com.example.sep4android.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +19,6 @@ import com.example.sep4android.Fragments.TemperatureFragment;
 import com.example.sep4android.R;
 import com.example.sep4android.ViewModels.ConditionsViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.Calendar;
-import java.util.Date;
 
 public class ConditionActivity extends AppCompatActivity {
     private ConditionsViewModel viewModel;
@@ -58,7 +53,7 @@ public class ConditionActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, MainActivity.class);
+                Intent intent = new Intent(this, SettingsActivity.class);
                 this.startActivity(intent);
                 break;
             case R.id.guidance:
@@ -68,6 +63,7 @@ public class ConditionActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
         return true;
     }
 

@@ -1,8 +1,5 @@
 package com.example.sep4android.Models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class CO2
 {
     private double value;

@@ -10,4 +10,12 @@
     <string name="book_archive">Book Archive</string>
     <string name="receive_notifications">Receive notifications</string>
     <string name="notifications_time_interval">Time interval between notifications (in minutes):</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="change_language">Change Language</string>
+    <string name="save">Save</string>
+    <string name="average">Average</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="reset">Reset</string>
+    <string name="last_week_readings">Last week readings</string>
 </resources>

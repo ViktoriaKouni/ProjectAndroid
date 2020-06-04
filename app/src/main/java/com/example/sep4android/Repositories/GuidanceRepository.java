@@ -90,4 +90,21 @@ public class GuidanceRepository {
         }
     }
 
+    public void update(Guidance guidance) {
+        new UpdateGuidanceAsyncTask(guidanceDao).execute(guidance);
+    }
+
+    private static class UpdateGuidanceAsyncTask extends AsyncTask<Guidance, Void, Void> {
+        private GuidanceDao guidanceDAO;
+
+        private UpdateGuidanceAsyncTask(GuidanceDao guidanceDAO) {
+            this.guidanceDAO = guidanceDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Guidance... guidances) {
+            guidanceDAO.update(guidances[0]);
+            return null;
+        }
+    }
 }
