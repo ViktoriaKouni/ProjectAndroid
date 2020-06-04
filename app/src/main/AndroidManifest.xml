@@ -14,10 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Views.GuidanceActivity"
-            android:parentActivityName=".Views.ConditionActivity"></activity>
-        <activity android:name=".Views.ConditionActivity" />
-        <activity android:name=".Fragments.CO2Fragment" />
-        <activity android:name=".Views.MainActivity">
+            android:parentActivityName=".Views.ConditionActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".Views.ConditionActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".Fragments.CO2Fragment"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"/>
+        <activity android:name=".Views.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
