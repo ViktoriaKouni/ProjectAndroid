@@ -3,14 +3,16 @@ package com.example.sep4android;
 import android.content.res.Resources;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.SmallTest;
 import androidx.test.rule.ActivityTestRule;
 
 import com.example.sep4android.Views.ConditionActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,6 +26,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertNotNull;
@@ -64,7 +67,6 @@ public class ConditionsTest {
     }
 
     @Test
-    @SmallTest
     public void test_bottomnavigationview() {
         final Menu menu = bottomNavigationView.getMenu();
         assertNotNull(menu);
@@ -79,14 +81,55 @@ public class ConditionsTest {
 
     @Test
     public void test_bottomnavigationview_click() {
+        for(int i = 1; i < MENU_CONTENT_ITEMS_ID.length; i++) {
+            onView(
+                    allOf(
+                            withId(MENU_CONTENT_ITEMS_ID[i]),
+                            isDescendantOfA(withId(R.id.bottom_navigation)),
+                            isDisplayed())).perform(click());
+            assertTrue(bottomNavigationView.getMenu().findItem(MENU_CONTENT_ITEMS_ID[i]).isChecked());
+            onView(withId(R.id.fragment_co2_container)).check(matches(isDisplayed()));
+        }
+        onView(allOf(withId(R.id.nav_home),isDescendantOfA(withId(R.id.bottom_navigation)),
+                isDisplayed())).perform(click());
+        onView(withId(R.id.fragment_home)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void test_buttons_visibility() {
+        for(int i = 1; i < MENU_CONTENT_ITEMS_ID.length; i++) {
+            onView (
+                    allOf(
+                            withId(MENU_CONTENT_ITEMS_ID[i]),
+                            isDescendantOfA(withId(R.id.bottom_navigation)),
+                            isDisplayed())).perform(click());
+            onView(allOf(withId(R.id.startDateB), isDisplayed()));
+            onView(allOf(withId(R.id.endDateB), isDisplayed()));
+            onView(allOf(withId(R.id.resetB), isDisplayed()));
+        }
+    }
+
+    @Test
+    public void test_button_start_date_button() {
         onView (
                 allOf(
-                        withText(menuContent.get(R.id.nav_home)),
-                isDescendantOfA(withId(R.id.bottom_navigation)),
-                isDisplayed())).perform(click());
+                        withId(R.id.nav_CO2),
+                        isDescendantOfA(withId(R.id.bottom_navigation)),
+                        isDisplayed())).perform(click());
+        onView(allOf(withId(R.id.startDateB), isDisplayed())).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2017, 6,30));
+        onView(withText("OK")).perform(click());
+    }
 
-        assertTrue(bottomNavigationView.getMenu().findItem(R.id.nav_home).isChecked());
-
-        onView(withId(R.id.fragment_co2_container)).check(matches(isDisplayed()));
+    @Test
+    public void test_button_end_date_button() {
+        onView (
+                allOf(
+                        withId(R.id.nav_CO2),
+                        isDescendantOfA(withId(R.id.bottom_navigation)),
+                        isDisplayed())).perform(click());
+        onView(allOf(withId(R.id.startDateB), isDisplayed())).perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2018, 6,30));
+        onView(withText("OK")).perform(click());
     }
 }
