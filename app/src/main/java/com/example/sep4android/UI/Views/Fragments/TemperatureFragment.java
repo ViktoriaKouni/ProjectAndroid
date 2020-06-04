@@ -1,7 +1,6 @@
 package com.example.sep4android.UI.Views.Fragments;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,28 +13,18 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
+import com.example.sep4android.DATA.Models.ChartUtility;
 import com.example.sep4android.DATA.Models.Condition;
 import com.example.sep4android.R;
 import com.example.sep4android.UI.ViewModels.ConditionsViewModel;
 import com.example.sep4android.UI.Views.Activities.ConditionActivity;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class TemperatureFragment extends Fragment {
     private ConditionActivity conditionActivity;
@@ -47,18 +36,14 @@ public class TemperatureFragment extends Fragment {
     private Calendar c;
     private Date startDate;
     private DatePickerDialog dpd;
-    private Button startDateB;
-    private Button endDateB;
-    private Button resetB;
     private boolean check;
     private LineChart graph;
-    ArrayList<Entry> values = new ArrayList<>();
-    ;
-    LineDataSet set1;
+    private ChartUtility chartUtility;
 
-    public TemperatureFragment(final ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
+    public TemperatureFragment(final ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel,ChartUtility cUtility) {
         this.conditionActivity = conditionActivity;
         this.conditionsViewModel = conditionsViewModel;
+        this.chartUtility = cUtility;
         conditionsViewModel.getTemperatureForDateInterval().observe(this, new Observer<List<Condition>>() {
             @Override
             public void onChanged(List<Condition> data) {
@@ -69,7 +54,7 @@ public class TemperatureFragment extends Fragment {
                         return u1.getDate().compareTo(u2.getDate());
                     }
                 });
-                handleGraph();
+                chartUtility.handleGraph(graph, conditions);
             }
         });
         conditionsViewModel.getAverageTemperature().observe(this, new Observer<Double>() {
@@ -84,14 +69,14 @@ public class TemperatureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_condition, container, false);
-        startDateB = rootView.findViewById(R.id.startDateB);
-        endDateB = rootView.findViewById(R.id.endDateB);
-        resetB = rootView.findViewById(R.id.resetB);
+        Button startDateB = rootView.findViewById(R.id.startDateB);
+        Button endDateB = rootView.findViewById(R.id.endDateB);
+        Button resetB = rootView.findViewById(R.id.resetB);
         startDateText = rootView.findViewById(R.id.startDate);
         endDateText = rootView.findViewById(R.id.endDate);
         averageValue = rootView.findViewById(R.id.averageValue);
         graph = (LineChart) rootView.findViewById(R.id.graph);
-        setupGraph();
+        chartUtility.setupGraph(graph);
         startDateB.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -166,57 +151,5 @@ public class TemperatureFragment extends Fragment {
         conditionsViewModel.getConditionForDateInterval("Temperature", sOneWeekBack, sNow);
         conditionsViewModel.getConditionAverageForDateInterval("Temperature", sOneWeekBack, sNow);
         check = false;
-    }
-
-    private void setupGraph() {
-        YAxis yAxis = graph.getAxisLeft();
-        yAxis.setTextColor(Color.BLACK);
-        yAxis.setTextSize(14f);
-
-
-        YAxis rightAxis = graph.getAxisRight();
-        rightAxis.setEnabled(false);
-
-
-        XAxis xAxis = graph.getXAxis();
-        xAxis.setGranularity(24);
-        xAxis.setTextSize(14f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setValueFormatter(new ValueFormatter() {
-
-            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM", Locale.ENGLISH);
-
-            @Override
-            public String getFormattedValue(float value) {
-
-                long millis = TimeUnit.HOURS.toMillis((long) value);
-                return mFormat.format(new Date(millis));
-            }
-        });
-        graph.getDescription().setEnabled(false);
-        graph.getLegend().setEnabled(false);
-
-    }
-
-    private void handleGraph() {
-        values.clear();
-        for (int i = 0; i < conditions.size(); i++) {
-            long time = TimeUnit.MILLISECONDS.toHours(conditions.get(i).getDate().getTime());
-            values.add(new Entry(time, (long) conditions.get(i).getValue()));
-        }
-        set1 = new LineDataSet(values, "CO2");
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
-        LineData data = new LineData(dataSets);
-        graph.setData(data);
-        graph.notifyDataSetChanged(); // let the chart know it's data changed
-        graph.invalidate(); // refresh chart
-        //todo move it out from this method to setup method
-        set1.setColor(Color.parseColor("#ffe6cc"));
-        set1.setCircleColor(Color.LTGRAY);
-        set1.setLineWidth(2f);
-        data.setValueTextColor(Color.parseColor("#ff8c1a"));
-        data.setValueTextSize(13f);
     }
 }

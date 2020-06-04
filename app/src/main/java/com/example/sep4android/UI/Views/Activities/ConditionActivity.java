@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.sep4android.DATA.Models.ChartUtility;
 import com.example.sep4android.UI.Views.Fragments.CO2Fragment;
 import com.example.sep4android.UI.Views.Fragments.HomeFragment;
 import com.example.sep4android.UI.Views.Fragments.HumidityFragment;
@@ -22,12 +23,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ConditionActivity extends AppCompatActivity {
     private ConditionsViewModel viewModel;
+    ChartUtility chartUtility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_condition);
         Toolbar toolbar = findViewById(R.id.tool);
+        chartUtility = new ChartUtility();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -77,13 +80,13 @@ public class ConditionActivity extends AppCompatActivity {
                             fragment = new HomeFragment(ConditionActivity.this, viewModel);
                             break;
                         case R.id.nav_CO2:
-                            fragment = new CO2Fragment(ConditionActivity.this, viewModel);
+                            fragment = new CO2Fragment(ConditionActivity.this, viewModel,chartUtility);
                             break;
                         case R.id.nav_humidity:
-                            fragment = new HumidityFragment(ConditionActivity.this, viewModel);
+                            fragment = new HumidityFragment(ConditionActivity.this, viewModel,chartUtility);
                             break;
                         case R.id.nav_temperature:
-                            fragment = new TemperatureFragment(ConditionActivity.this, viewModel);
+                            fragment = new TemperatureFragment(ConditionActivity.this, viewModel,chartUtility);
                             break;
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
