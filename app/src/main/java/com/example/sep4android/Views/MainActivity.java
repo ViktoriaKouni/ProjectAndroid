@@ -72,22 +72,10 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         job.schedule(info);
         Log.i("Retrofit", "Start notification scheduler");
     }
-    //todo not sure we need it
-    public void StopNotifications()
-    {
-        JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
-        job.cancel(1);
-        Log.i("Retrofit", "Job cancelled");
-    }
 
     private void scheduleUpdates()
     {
         startService( new Intent( this, UpdateService. class )) ;
-    }
-//todo to think when and how we want this to work
-    public void StopUpdates()
-    {
-        stopService( new Intent( this, UpdateService. class )) ;
     }
 
 }
