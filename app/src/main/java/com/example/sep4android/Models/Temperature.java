@@ -1,19 +1,19 @@
 package com.example.sep4android.Models;
 
-public class Temperature
-{
+public class Temperature {
     private double value;
     //todo time variable, for future
 
-    public Temperature(double value) { this.value = value; }
+    public Temperature(double value) {
+        this.value = value;
+    }
 
     public double getValue() {
-        return value;    }
+        return value;
+    }
 
-    public boolean equals(Object obj)
-    {
-        if (!(obj instanceof Temperature))
-        {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Temperature)) {
             return false;
         }
         Temperature other = (Temperature) obj;

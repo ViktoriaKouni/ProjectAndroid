@@ -10,8 +10,7 @@ public class OptimalValues {
     private double optimalTemperature;
     private double optimalHumidity;
 
-    public OptimalValues( double co2,double temperature,double humidity)
-    {
+    public OptimalValues(double co2, double temperature, double humidity) {
         this.optimalCO2 = co2;
         this.optimalTemperature = temperature;
         this.optimalHumidity = humidity;
@@ -28,13 +27,12 @@ public class OptimalValues {
     public double getOptimalTemperature() {
         return optimalTemperature;
     }
-    public boolean equals(Object obj)
-    {
-        if (!(obj instanceof OptimalValues))
-        {
+
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OptimalValues)) {
             return false;
         }
         OptimalValues other = (OptimalValues) obj;
-        return  optimalCO2 == other.getOptimalCO2() && optimalTemperature == other.getOptimalTemperature() && optimalHumidity == other.getOptimalHumidity();
+        return optimalCO2 == other.getOptimalCO2() && optimalTemperature == other.getOptimalTemperature() && optimalHumidity == other.getOptimalHumidity();
     }
 }

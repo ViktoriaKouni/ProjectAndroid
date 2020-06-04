@@ -15,8 +15,8 @@ public abstract class GuidanceDatabase extends RoomDatabase {
 
     public abstract GuidanceDao noteDao();
 
-    public static synchronized GuidanceDatabase getInstance(Context context){
-        if(instance == null) {
+    public static synchronized GuidanceDatabase getInstance(Context context) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     GuidanceDatabase.class, "guidance_database")
                     .fallbackToDestructiveMigration()

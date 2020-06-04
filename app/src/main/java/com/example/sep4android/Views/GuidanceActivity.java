@@ -50,7 +50,7 @@ public class GuidanceActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     Fragment fragment = null;
 
-                    switch(menuItem.getItemId()) {
+                    switch (menuItem.getItemId()) {
                         case R.id.guidance_nav_CO2:
                             fragment = new GuidanceCO2Fragment(GuidanceActivity.this, viewModel);
                             break;

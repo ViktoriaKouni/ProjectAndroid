@@ -6,8 +6,7 @@ public class Condition {
     private double value;
     private Date date;
 
-    public Condition(double value, Date date)
-    {
+    public Condition(double value, Date date) {
         this.value = value;
         this.date = date;
     }

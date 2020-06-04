@@ -4,8 +4,7 @@ public class ArchiveRoomIndentification {
     private String roomName;
     private int roomNumber;
 
-    public ArchiveRoomIndentification(String roomName, int roomNumber)
-    {
+    public ArchiveRoomIndentification(String roomName, int roomNumber) {
         this.roomName = roomName;
         this.roomNumber = roomNumber;
     }

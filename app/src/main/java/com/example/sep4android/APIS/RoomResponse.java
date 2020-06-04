@@ -11,8 +11,7 @@ public class RoomResponse {
     @Expose
     private int roomNumber;
 
-    public RoomResponse(String roomName, int roomNumber)
-    {
+    public RoomResponse(String roomName, int roomNumber) {
         this.roomName = roomName;
         this.roomNumber = roomNumber;
     }

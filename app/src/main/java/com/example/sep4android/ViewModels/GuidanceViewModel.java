@@ -21,13 +21,17 @@ public class GuidanceViewModel extends AndroidViewModel {
         mListLiveData = repository.getAllGuidanceCO2();
     }
 
-    public LiveData<List<Guidance>> getGuidanceCO2(){
+    public LiveData<List<Guidance>> getGuidanceCO2() {
         return repository.getAllGuidanceCO2();
     }
 
-    public LiveData<List<Guidance>> getGuidanceHumidity(){ return repository.getAllGuidanceHumidity(); }
+    public LiveData<List<Guidance>> getGuidanceHumidity() {
+        return repository.getAllGuidanceHumidity();
+    }
 
-    public LiveData<List<Guidance>> getGuidanceTemperature(){ return repository.getAllGuidanceTemperature(); }
+    public LiveData<List<Guidance>> getGuidanceTemperature() {
+        return repository.getAllGuidanceTemperature();
+    }
 
     public void insert(final Guidance guidance) {
         repository.insert(guidance);

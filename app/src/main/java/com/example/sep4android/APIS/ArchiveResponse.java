@@ -1,9 +1,6 @@
 package com.example.sep4android.APIS;
 
-import com.example.sep4android.Models.CO2;
-import com.example.sep4android.Models.Humidity;
 import com.example.sep4android.Models.OptimalValues;
-import com.example.sep4android.Models.Temperature;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

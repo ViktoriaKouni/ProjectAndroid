@@ -51,7 +51,7 @@ public class ConditionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 this.startActivity(intent);
@@ -78,7 +78,7 @@ public class ConditionActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_CO2:
                             fragment = new CO2Fragment(ConditionActivity.this, viewModel);
-                        break;
+                            break;
                         case R.id.nav_humidity:
                             fragment = new HumidityFragment(ConditionActivity.this, viewModel);
                             break;
@@ -88,7 +88,7 @@ public class ConditionActivity extends AppCompatActivity {
                     }
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             fragment).commit();
-                            return true;
+                    return true;
                 }
             };
 }

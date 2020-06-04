@@ -22,7 +22,7 @@ import com.example.sep4android.ViewModels.ArchiveViewModel;
 
 import java.util.List;
 
-public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnListItemClickedListener {
+public class MainActivity extends AppCompatActivity implements RoomAdapter.OnListItemClickedListener {
 
     private RoomAdapter adapter;
     private ArchiveViewModel viewModel;
@@ -34,7 +34,7 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
         setContentView(R.layout.activity_main);
         setViewModel();
         recyclerView = findViewById(R.id.rooms);
-        adapter = new RoomAdapter( this);
+        adapter = new RoomAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -64,18 +64,17 @@ public class MainActivity  extends AppCompatActivity implements RoomAdapter.OnLi
 
     private void scheduleNotifications() {
         ComponentName name = new ComponentName(this, NotificationJobScheduler.class);
-        JobInfo info = new JobInfo.Builder(1,name)
+        JobInfo info = new JobInfo.Builder(1, name)
                 .setPersisted(true)
-                .setPeriodic(15*60*1000)
+                .setPeriodic(15 * 60 * 1000)
                 .build();
         JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         job.schedule(info);
         Log.i("Retrofit", "Start notification scheduler");
     }
 
-    private void scheduleUpdates()
-    {
-        startService( new Intent( this, UpdateService. class )) ;
+    private void scheduleUpdates() {
+        startService(new Intent(this, UpdateService.class));
     }
 
 }

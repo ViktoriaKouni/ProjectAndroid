@@ -7,7 +7,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServiceGenerator {
 
 
-
     private static Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
             .baseUrl("https://librarydatabaseapi.azurewebsites.net")
             .addConverterFactory(GsonConverterFactory.create());

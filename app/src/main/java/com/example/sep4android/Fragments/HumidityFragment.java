@@ -52,7 +52,8 @@ public class HumidityFragment extends Fragment {
     private Button resetB;
     private boolean check;
     private LineChart graph;
-    ArrayList<Entry> values = new ArrayList<>();;
+    ArrayList<Entry> values = new ArrayList<>();
+    ;
     LineDataSet set1;
 
     public HumidityFragment(final ConditionActivity conditionActivity, ConditionsViewModel conditionsViewModel) {
@@ -79,6 +80,7 @@ public class HumidityFragment extends Fragment {
         });
         setDefault();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_condition, container, false);
@@ -90,8 +92,7 @@ public class HumidityFragment extends Fragment {
         averageValue = rootView.findViewById(R.id.averageValue);
         graph = (LineChart) rootView.findViewById(R.id.graph);
         setupGraph();
-        startDateB.setOnClickListener(new View.OnClickListener()
-        {
+        startDateB.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -102,21 +103,19 @@ public class HumidityFragment extends Fragment {
 
                 dpd = new DatePickerDialog(conditionActivity, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
-                    {
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         Calendar mDate = Calendar.getInstance();
-                        mDate.set(year,month,dayOfMonth);
-                        startDate =mDate.getTime();
+                        mDate.set(year, month, dayOfMonth);
+                        startDate = mDate.getTime();
                         check = true;
-                        startDateText.setText("start date: "+dayOfMonth+"/"+(month+1)+"/"+year);
+                        startDateText.setText("start date: " + dayOfMonth + "/" + (month + 1) + "/" + year);
                     }
-                },year,month,day);
-                dpd.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+                }, year, month, day);
+                dpd.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
                 dpd.show();
             }
         });
-        endDateB.setOnClickListener(new View.OnClickListener()
-        {
+        endDateB.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -131,17 +130,17 @@ public class HumidityFragment extends Fragment {
                     dpd = new DatePickerDialog(conditionActivity, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                            String endDate =year+"-"+(month+1)+"-"+dayOfMonth;
+                            String endDate = year + "-" + (month + 1) + "-" + dayOfMonth;
                             Calendar c = Calendar.getInstance();
                             c.setTime(startDate);
-                            String sStartDate =c.get(Calendar.YEAR)+"-"+(c.get(Calendar.MONTH)+1)+"-"+c.get(Calendar.DAY_OF_MONTH);
+                            String sStartDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH);
                             endDateText.setText("end date: " + dayOfMonth + "/" + (month + 1) + "/" + year);
-                            conditionsViewModel.getConditionForDateInterval("Humidity",sStartDate,endDate);
-                            conditionsViewModel.getConditionAverageForDateInterval("Humidity",sStartDate,endDate);
+                            conditionsViewModel.getConditionForDateInterval("Humidity", sStartDate, endDate);
+                            conditionsViewModel.getConditionAverageForDateInterval("Humidity", sStartDate, endDate);
                         }
                     }, year, month, day);
                     dpd.getDatePicker().setMinDate(startDate.getTime());
-                    dpd.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+                    dpd.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
                     dpd.show();
                 }
             }
@@ -157,21 +156,19 @@ public class HumidityFragment extends Fragment {
         return rootView;
     }
 
-    private void setDefault()
-    {
+    private void setDefault() {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        String sNow = calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
+        String sNow = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
         calendar.add(Calendar.DAY_OF_YEAR, -7);
-        String sOneWeekBack = calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
-        conditionsViewModel.getConditionForDateInterval("Humidity",sOneWeekBack,sNow);
-        conditionsViewModel.getConditionAverageForDateInterval("Humidity",sOneWeekBack,sNow);
+        String sOneWeekBack = calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH);
+        conditionsViewModel.getConditionForDateInterval("Humidity", sOneWeekBack, sNow);
+        conditionsViewModel.getConditionAverageForDateInterval("Humidity", sOneWeekBack, sNow);
         check = false;
     }
 
-    private void setupGraph()
-    {
+    private void setupGraph() {
         YAxis yAxis = graph.getAxisLeft();
         yAxis.setTextColor(Color.BLACK);
         yAxis.setTextSize(14f);
@@ -202,11 +199,9 @@ public class HumidityFragment extends Fragment {
 
     }
 
-    private void handleGraph()
-    {
+    private void handleGraph() {
         values.clear();
-        for(int i=0;i<conditions.size();i++)
-        {
+        for (int i = 0; i < conditions.size(); i++) {
             long time = TimeUnit.MILLISECONDS.toHours(conditions.get(i).getDate().getTime());
             values.add(new Entry(time, (long) conditions.get(i).getValue()));
         }

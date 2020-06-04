@@ -34,33 +34,29 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RoomAdapter.ViewHolder holder, int position) {
-        if(rooms != null) {
+        if (rooms != null) {
             ArchiveRoomIndentification roomPosition = rooms.get(position);
             holder.roomName.setText(String.valueOf(roomPosition.getRoomName()));
         }
     }
 
     public void setRooms(List<ArchiveRoomIndentification> rooms) {
-        if (this.rooms ==null)
-        {
+        if (this.rooms == null) {
             this.rooms = rooms;
             notifyDataSetChanged();
-        }
-        else
-        for(int i = 0;i<rooms.size();i++)
-        {
-                if(!this.rooms.get(i).equals(rooms.get(i)))
-                {
+        } else
+            for (int i = 0; i < rooms.size(); i++) {
+                if (!this.rooms.get(i).equals(rooms.get(i))) {
                     this.rooms = rooms;
                     notifyDataSetChanged();
                     break;
                 }
-        }
+            }
     }
 
     @Override
     public int getItemCount() {
-        if(rooms != null) {
+        if (rooms != null) {
             return rooms.size();
         }
         return 0;
@@ -73,7 +69,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         RelativeLayout parentLayout;
         OnListItemClickedListener onListItemClickedListener;
 
-        public ViewHolder(@NonNull View itemView, OnListItemClickedListener listener) {
+        private ViewHolder(@NonNull View itemView, OnListItemClickedListener listener) {
             super(itemView);
             roomName = itemView.findViewById(R.id.roomName);
             parentLayout = itemView.findViewById(R.id.parent_layout);
@@ -88,6 +84,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         }
 
     }
+
     public interface OnListItemClickedListener {
         void onListItemClicked(int roomNumber);
     }

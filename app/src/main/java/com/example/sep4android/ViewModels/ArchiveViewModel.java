@@ -21,11 +21,11 @@ public class ArchiveViewModel extends AndroidViewModel {
         repository = ArchiveRepository.getInstance();
     }
 
-    public LiveData<ArrayList<ArchiveRoomIndentification>> getArchiveRooms(){
+    public LiveData<ArrayList<ArchiveRoomIndentification>> getArchiveRooms() {
         return repository.getArchiveRooms();
     }
 
-    public void getArchiveRoom(int roomNumber){
+    public void getArchiveRoom(int roomNumber) {
         repository.getArchiveRoom(roomNumber);
     }
 

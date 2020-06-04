@@ -28,57 +28,53 @@ public class GuidanceAdapter extends RecyclerView.Adapter<GuidanceAdapter.ViewHo
     }
 
     @NonNull
-        @Override
-        public GuidanceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    @Override
+    public GuidanceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.guidance_item, parent, false);
         return new ViewHolder(view);
-        }
+    }
 
-        @Override
-        public void onBindViewHolder(@NonNull GuidanceAdapter.ViewHolder holder, int position) {
-        if(guidances !=null){
-            Guidance guidancePosition=guidances.get(position);
+    @Override
+    public void onBindViewHolder(@NonNull GuidanceAdapter.ViewHolder holder, int position) {
+        if (guidances != null) {
+            Guidance guidancePosition = guidances.get(position);
             holder.guidanceDescription.setText(guidancePosition.getDescription());
         }
-        }
+    }
 
-    public void setGuidances(List<Guidance> guidances)
-    {
+    public void setGuidances(List<Guidance> guidances) {
         this.guidances = guidances;
         notifyDataSetChanged();
     }
 
-        @Override
-        public int getItemCount() {
-            if(guidances == null)
-            {
-                return 0;
-            }
-            return guidances.size();
+    @Override
+    public int getItemCount() {
+        if (guidances == null) {
+            return 0;
         }
+        return guidances.size();
+    }
 
-    public Guidance getGuidanceAt(int position)
-    {
+    public Guidance getGuidanceAt(int position) {
         return guidances.get(position);
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-            TextView guidanceDescription;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView guidanceDescription;
 
 
+        private ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            guidanceDescription = itemView.findViewById(R.id.guidance_description);
+            itemView.setOnClickListener(this);
+        }
 
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                guidanceDescription = itemView.findViewById(R.id.guidance_description);
-                itemView.setOnClickListener(this);
-            }
+        @Override
+        public void onClick(View v) {
 
-            @Override
-            public void onClick(View v) {
-
-                    mOnListItemClickListener.onListItemClick(guidances.get(getAdapterPosition()));
-            }
+            mOnListItemClickListener.onListItemClick(guidances.get(getAdapterPosition()));
         }
     }
+}
