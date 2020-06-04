@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.MainActivity">
+    tools:context=".UI.Views.Activities.MainActivity">
 
     <include layout="@layout/toolbar"
         android:id="@+id/tool"

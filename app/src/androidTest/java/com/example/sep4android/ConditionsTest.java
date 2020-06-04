@@ -9,7 +9,7 @@ import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.sep4android.Views.ConditionActivity;
+import com.example.sep4android.UI.Views.Activities.ConditionActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.hamcrest.Matchers;

@@ -9,7 +9,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.sep4android.Views.GuidanceActivity;
+import com.example.sep4android.UI.Views.Activities.GuidanceActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.junit.Before;

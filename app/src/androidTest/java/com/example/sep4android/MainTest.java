@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.sep4android.Views.MainActivity;
+import com.example.sep4android.UI.Views.Activities.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
