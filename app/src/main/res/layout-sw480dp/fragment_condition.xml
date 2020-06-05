@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UI.Views.Activities.ConditionActivity"
+    android:id="@+id/fragment_co2_container">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/archiveRoom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="casual"
+            android:text="@string/archive_room"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/averageText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:text="@string/average"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/averageValue"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:gravity="center_vertical"
+            android:layout_weight="1.8"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startDateB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/start_date"
+            android:layout_weight="0.8"/>
+        <Button
+            android:id="@+id/endDateB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/end_date"
+            android:layout_weight="0.8"/>
+
+        <Button
+            android:id="@+id/resetB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/reset"
+            android:layout_weight="1.1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:text="@string/last_week_readings"
+            android:gravity="left"
+            android:layout_weight="1.5"/>
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="casual"
+            android:gravity="left"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/graph"/>
+
+
+</LinearLayout>

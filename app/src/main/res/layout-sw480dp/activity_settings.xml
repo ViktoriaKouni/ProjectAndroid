@@ -17,18 +17,17 @@
         <TextView
             android:id="@+id/receive_notification"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="24dp"
+            android:layout_height="wrap_content"
+            android:textSize="36dp"
             android:text="@string/receive_notifications" />
 
         <CheckBox
             android:id="@+id/notifications_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleX="1.2"
-            android:scaleY="1.2"/>
+            android:scaleX="1.5"
+            android:scaleY="1.5"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
