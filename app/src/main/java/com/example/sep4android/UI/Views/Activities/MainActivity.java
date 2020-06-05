@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements RoomAdapter.OnLis
         ComponentName name = new ComponentName(this, NotificationJobScheduler.class);
         JobInfo info = new JobInfo.Builder(1, name)
                 .setPersisted(true)
-                .setPeriodic(15 * 60 * 1000)
+                .setPeriodic(120 * 60 * 1000)
                 .build();
         JobScheduler job = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
         job.schedule(info);
