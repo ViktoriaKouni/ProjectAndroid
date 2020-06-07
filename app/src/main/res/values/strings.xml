@@ -18,4 +18,13 @@
     <string name="end_date">End Date</string>
     <string name="reset">Reset</string>
     <string name="last_week_readings">Last week readings</string>
+    <string name="co2_guidance" translatable="false">Install and maintain a good ventilation system</string>
+    <string name="co2_guidance2" translatable="false">Open a window.</string>
+    <string name="temperature_guidance" translatable="false">turn on an air conditioner</string>
+    <string name="temperature_guidance2" translatable="false">Improve the building’s airtightness or thermal insulation to counter infiltrations air leakage and in turn ensure easier temperature control indoors.</string>
+    <string name="humidity_guidance" translatable="false">ensure better air circulation.</string>
+    <string name="humidity_guidance2" translatable="false">use an air exchanger: a heat recovery ventilator (HRV) or energy recovery ventilator (ERV).</string>
+    <string name="humidity_guidance3" translatable="false">Conversely, if the humidity is too low, a portable humidifier or one connected to a central forced-air heating system is an effective solution. </string>
+
 </resources>
+

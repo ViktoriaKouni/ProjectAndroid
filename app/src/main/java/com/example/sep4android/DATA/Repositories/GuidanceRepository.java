@@ -23,11 +23,10 @@ public class GuidanceRepository {
 
     private GuidanceRepository(Application application) {
         GuidanceDatabase database = GuidanceDatabase.getInstance(application);
-        guidanceDao = database.noteDao();
+        guidanceDao = database.guidanceDao();
         allGuidanceCO2 = guidanceDao.getAllCO2Guidance();
         allGuidanceHumidity = guidanceDao.getAllHumidityGuidance();
         allGuidanceTemperature = guidanceDao.getAllTemperatureGuidance();
-
     }
 
     public static synchronized GuidanceRepository getInstance(Application application) {
@@ -50,14 +49,14 @@ public class GuidanceRepository {
     }
 
     public void insert(Guidance guidance) {
-        new InsertNoteAsync(guidanceDao).execute(guidance);
+        new InsertGuidanceAsync(guidanceDao).execute(guidance);
     }
 
 
-    private static class InsertNoteAsync extends AsyncTask<Guidance, Void, Void> {
+    private static class InsertGuidanceAsync extends AsyncTask<Guidance, Void, Void> {
         private GuidanceDao guidanceDao;
 
-        private InsertNoteAsync(GuidanceDao guidanceDao) {
+        private InsertGuidanceAsync(GuidanceDao guidanceDao) {
             this.guidanceDao = guidanceDao;
         }
 

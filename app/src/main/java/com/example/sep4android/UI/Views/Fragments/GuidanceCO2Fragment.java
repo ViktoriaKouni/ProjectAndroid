@@ -1,7 +1,9 @@
 package com.example.sep4android.UI.Views.Fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +19,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sep4android.UI.Adapters.GuidanceAdapter;
 import com.example.sep4android.DATA.Models.Guidance;
 import com.example.sep4android.R;
+import com.example.sep4android.UI.Adapters.GuidanceAdapter;
 import com.example.sep4android.UI.ViewModels.GuidanceViewModel;
 import com.example.sep4android.UI.Views.Activities.GuidanceActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,6 +49,7 @@ public class GuidanceCO2Fragment extends Fragment implements GuidanceAdapter.OnL
         setHasOptionsMenu(true);
 
 
+        defaultData();
         guidanceAdapter = new GuidanceAdapter(this);
         guidanceRecyclerView.setAdapter(guidanceAdapter);
 
@@ -81,6 +84,24 @@ public class GuidanceCO2Fragment extends Fragment implements GuidanceAdapter.OnL
 
 
         return rootView;
+    }
+
+    private void defaultData() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (!sharedPreferences.contains("data")) {
+
+            guidanceViewModel.insert(new Guidance("CO2", getResources().getString(R.string.co2_guidance)));
+            guidanceViewModel.insert(new Guidance("CO2", getResources().getString(R.string.co2_guidance2)));
+            guidanceViewModel.insert(new Guidance("Humidity", getResources().getString(R.string.humidity_guidance)));
+            guidanceViewModel.insert(new Guidance("Humidity", getResources().getString(R.string.humidity_guidance2)));
+            guidanceViewModel.insert(new Guidance("Humidity", getResources().getString(R.string.humidity_guidance3)));
+            guidanceViewModel.insert(new Guidance("Temperature", getResources().getString(R.string.temperature_guidance)));
+            guidanceViewModel.insert(new Guidance("Temperature", getResources().getString(R.string.temperature_guidance2)));
+
+
+            editor.putBoolean("data", true).apply();
+        }
     }
 
     private void saveGuidance() {
@@ -140,3 +161,4 @@ public class GuidanceCO2Fragment extends Fragment implements GuidanceAdapter.OnL
         ad.show();
     }
 }
+

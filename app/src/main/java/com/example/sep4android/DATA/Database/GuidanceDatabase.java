@@ -13,7 +13,7 @@ public abstract class GuidanceDatabase extends RoomDatabase {
 
     private static GuidanceDatabase instance;
 
-    public abstract GuidanceDao noteDao();
+    public abstract GuidanceDao guidanceDao();
 
     public static synchronized GuidanceDatabase getInstance(Context context) {
         if (instance == null) {
